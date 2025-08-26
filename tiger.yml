@@ -1,0 +1,9 @@
+---
+secrets:
+  - 25f0abaafab22595bb046889c8d723b099517a65
+config:
+  v1:
+    api:
+      upstream_api_url: 'https://tiger-api-portal.worldline.global'
+      upstream_api_header: 'X-API-Key'
+      upstream_api_key: 'JsfAqhmRuO88ndFxs6VG47Z5dXRB8YZB7Dy4xWXN'

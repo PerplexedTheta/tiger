@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+[%
+  INCLUDE 'include/doc-head-copyright.inc.tt2'
+  author_year='2025'
+  author_name='Chaos Theory'
+%]
+[%
+  INCLUDE 'include/doc-head-start.inc.tt2'
+  title="$status &ndash; $error"
+%]
+[%
+  INCLUDE 'include/doc-head-close.inc.tt2'
+  id="errors"
+  class=""
+%]
+
+<nav>
+    <h1 id="headline">[% status %] &ndash; [% error %]</h1>
+</nav>
+
+<main>
+    <p class="errors">[% message %]</p>
+</main>
+
+<footer>
+    <span id="clock">&nbsp;</span>
+</footer>
+
+[% INCLUDE 'include/doc-body-scripts.inc.tt2' %]
+<script type="module">
+    import Clock from '/include/js/clock.mjs';
+
+    const clock = new Clock({ jquery: jQuery });
+    clock.init();
+</script>
+[% INCLUDE 'include/doc-body-close.inc.tt2' %]

@@ -1,0 +1,55 @@
+---
+openapi: 3.0.3
+info: 
+  title: "tiger API"
+  version: 0.0.1
+paths: 
+  /hello_world: 
+    get:
+      operationId: "getHelloWorld"
+      summary: "Check the app uses to see if the API is running"
+      x-mojo-name: "get_hello_world"
+      x-mojo-to: "API::HelloWorld#list"
+      responses: 
+        200: 
+          content: 
+            application/json: 
+              schema: 
+                type: "object"
+          description: "Hello World response"
+  /rail/locations: 
+    get:
+      operationId: "listRailLocations"
+      summary: "Get all available locations on the Tiger CIS"
+      x-mojo-name: "list_rail_locations"
+      x-mojo-to: "API::Rail::Locations#list"
+      responses: 
+        200: 
+          content: 
+            application/json: 
+              schema: 
+                type: "array"
+          description: "Tiger CIS Locations response"
+  /rail/services/{tiploc_id}: 
+    get:
+      operationId: "getRailServices"
+      parameters:
+        - description: "Internal TIPLOC identifier"
+          name: "tiploc_id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      summary: "Get data from Tiger CIS Services based on TIPLOC code"
+      x-mojo-name: "get_rail_services"
+      x-mojo-to: "API::Rail::Services#get"
+      responses: 
+        200: 
+          content: 
+            application/json: 
+              schema: 
+                type: "object"
+          description: "Tiger CIS Services response"
+servers: 
+- url: "/api/v1"
+

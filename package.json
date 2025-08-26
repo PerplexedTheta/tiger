@@ -1,0 +1,35 @@
+{
+  "name": "tiger",
+  "version": "0.0.1",
+  "description": "A clone of Worldline's Tiger system, using National Rail data",
+  "main": "gulpfile.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "css:build": "gulp css:build && exit 0",
+    "css:dev": "gulp css:dev && exit 0",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "svn",
+    "url": "https://github.com/PerplexedTheta/tiger.git"
+  },
+  "author": "PerplexedTheta <jake@deeryme.net>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "mailto:postmaster@ishukone.net"
+  },
+  "homepage": "about:blank",
+  "dependencies": {
+    "bootstrap": "^5.3.7",
+    "jquery": "^3.7.1"
+  },
+  "devDependencies": {
+    "gulp": "^5.0.1",
+    "gulp-rename": "^2.1.0",
+    "gulp-sass": "^6.0.1",
+    "gulp-sourcemaps": "^3.0.0",
+    "sass": "^1.90.0"
+  }
+}

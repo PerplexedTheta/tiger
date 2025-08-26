@@ -1,0 +1,4 @@
+</head>
+
+<body id="[% id %]" class="[% class %]" data-display-mode="[% display_mode || 'dark' %]">
+    <div id="wrapper">

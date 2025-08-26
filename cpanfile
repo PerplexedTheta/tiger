@@ -1,0 +1,11 @@
+requires 'Class::Inspector', '1.36';
+requires 'Data::Dumper', '2.183';
+requires 'HTTP::Request', '7.00';
+requires 'LWP::Protocol::https', '6.14';
+requires 'LWP::UserAgent', '1.0.0';
+requires 'Modern::Perl', '1.20250607';
+requires 'Mojolicious', '9.14';
+requires 'Mojolicious::Plugin::OpenAPI', '5.11';
+requires 'Mojolicious::Plugin::TemplateToolkit', '0.006';
+requires 'JSON', '4.10';
+requires 'YAML', '1.31';

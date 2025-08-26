@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+[%
+  INCLUDE 'include/doc-head-copyright.inc.tt2'
+  author_year='2025'
+  author_name='Chaos Theory'
+%]
+[% INCLUDE 'include/doc-head-start.inc.tt2' %]
+<base href="/">
+[%
+  INCLUDE 'include/doc-head-close.inc.tt2'
+  id="mainpage"
+  class=""
+%]
+
+<nav>
+    <img id="rail-logo" src="res/vectors/rail-icon.svg" />
+    <h1 id="headline">&nbsp;</h1>
+</nav>
+
+<main>
+    <div class="main-row" data-uid="undefined">
+        <div class="main-col-time"></div>
+        <div class="main-col-dest">&nbsp;</div>
+    </div>
+    <div class="main-row" data-uid="undefined">
+        <div class="main-col-time"></div>
+        <div class="main-col-dest">Loading . . . </div>
+    </div>
+</main>
+
+<footer>
+    <span id="clock">&nbsp;</span>
+</footer>
+
+[% INCLUDE 'include/doc-body-scripts.inc.tt2' %]
+<script type="module">
+    import API from './include/js/api.mjs';
+    import Clock from './include/js/clock.mjs';
+    import Rail from './include/js/rail.mjs';
+
+    const api = new API({ jquery: jQuery, tiploc_id: '[% tiploc_id %]' });
+    api.init();
+
+    const clock = new Clock({ jquery: jQuery });
+    clock.init();
+
+    const rail = new Rail({ api: api, jquery: jQuery });
+    rail.init();
+    setInterval(
+        (() => {
+            return rail.build()
+        }),
+        60000
+    );
+</script>
+[% INCLUDE 'include/doc-body-close.inc.tt2' %]

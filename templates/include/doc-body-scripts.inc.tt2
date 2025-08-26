@@ -1,0 +1,5 @@
+    </div>
+    <!-- scripts lib -->
+    <script src="/lib/js/jquery.min.js"></script>
+    <!-- scripts our -->
+    <script src="/include/js/global.js"></script>
