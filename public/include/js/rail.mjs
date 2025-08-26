@@ -38,10 +38,21 @@ const Rail = class {
                 this.setExp(uid, this.STD, service.ETD, service.Delay);
                 this.setFormed(uid, service.Destinations.Front.Coaches);
             });
+
+            this.checkHomework();
         })
         .fail(error => {
             console.error(error);
         });
+    });
+
+    checkHomework = (() => {
+        if (this.jQuery('div[data-uid]').length === 0) {
+            return this.jQuery('main')
+            .html('<p class="silent">No services currently operating<\/p>');
+        }
+
+        return;
     });
 
     fetchLocations = (async () => {
@@ -71,7 +82,7 @@ const Rail = class {
 
     loadDOM = (uid => {
         return this.jQuery('main')
-        .append('<div class=\"main-row\" data-uid=\"' + uid + '\"><div class=\"main-col-time\"><\/div><div class=\"main-col-dest\"><span class=\"via\"><\/span><\/div><div class=\"main-col-plat\"><span class=\"amended\"><\/span><\/div><div class=\"main-col-issue\"><\/div><div class=\"main-col-exp\"><span class=\"cancelled\"><\/span><\/div><div class=\"main-col-formed\"><\/div><\/div>');
+        .append('<div class=\"main-row\" data-uid=\"' + uid + '\"><div class=\"main-col-time\"><\/div><div class=\"main-col-dest\"><\/div><div class=\"main-col-plat\"><\/div><div class=\"main-col-issue\"><\/div><div class=\"main-col-exp\"><\/div><div class=\"main-col-formed\"><\/div><\/div>');
     });
 
     resetDOM = (() => {
