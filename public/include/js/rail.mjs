@@ -146,11 +146,21 @@ const Rail = class {
     });
 
     setToc = ((uid, toc = 'GWR') => {
-        let article = 'A';
-        let an_tocs = ['SWR', 'Elizabeth line'];
+        let article_map = {
+            'Avanti West Coast': 'An',
+            'Elizabeth line': 'An',
+            'EMR': 'An',
+            'EMR Connect': 'An',
+            'LNER': 'An',
+            'LNER Azuma': 'An',
+            'SWR': 'An',
+            'SWR Arterio': 'An',
+            '*': 'A',
+        };
+        let article = article_map[toc] || article_map['*'];
 
-        if (an_tocs.includes(toc))
-            article = 'An';
+        if (toc === 'Bus service')
+            toc = 'bus';
 
         return this.jQuery('div[data-uid="' + uid + '"]').find('div.main-col-dest').first()
             .append('<span class=\"toc\">' + article + ' ' + toc + ' service<\/span>');
