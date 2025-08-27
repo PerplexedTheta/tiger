@@ -19,7 +19,7 @@
 }
 
 :root {
-    font-size: 20px;
+    font-size: 16px;
     --doc-fonts: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 
     // note that eink displays are monochrome
@@ -34,5 +34,11 @@
         --doc-fg: rgba(35, 31, 32, 1.0);
         --doc-fg-important: rgba(35, 31, 32, 0.85);
         --doc-inverse: invert(0);
+    }
+}
+
+@media (min-width: 576px) {
+    :root {
+        font-size: 20px;
     }
 }

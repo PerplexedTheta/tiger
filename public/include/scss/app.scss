@@ -35,14 +35,14 @@
         img#rail-logo,
         img#bus-logo {
             width: auto;
-            height: 36px;
+            height: 24px;
             margin: auto 0.75em auto 0;
             filter: var(--doc-inverse);
         }
 
         h1#headline {
             margin-bottom: 0;
-            font-size: 1.50em;
+            font-size: 1.33em;
             font-weight: bold;
         }
     }
@@ -79,15 +79,7 @@
         .main-row-header {
             font-weight: lighter;
             font-style: italic;
-
-            .main-col-time,
-            .main-col-dest,
-            .main-col-plat,
-            .main-col-issue,
-            .main-col-exp,
-            .main-col-formed {
-                margin-bottom: 0.50em;
-            }
+            margin-bottom: 0.50em;
         }
 
         .main-col-time,
@@ -96,10 +88,11 @@
         .main-col-issue,
         .main-col-exp,
         .main-col-formed {
-            overflow-x: scroll;
+            overflow-x: hidden;
             padding: 0.125em 0.25em;
             margin-bottom: 0.25em;
             font-weight: normal;
+            font-size: 0.85em;
             white-space: nowrap;
         }
 
@@ -107,6 +100,7 @@
             width: 12.5%;
         }
         .main-col-dest {
+            overflow-x: scroll;
             width: 35%;
             color: var(--doc-fg);
 
@@ -156,10 +150,23 @@
         border-top: 3px solid var(--doc-fg);
 
         span#clock {
-            font-size: 1.50em;
+            font-size: 1.33em;
             font-weight: normal;
         }
     }
 }
 
-@media (min-width: 992px) { }
+@media (min-width: 576px) {
+    #wrapper{
+        main {
+            .main-col-time,
+            .main-col-dest,
+            .main-col-plat,
+            .main-col-issue,
+            .main-col-exp,
+            .main-col-formed {
+                font-size: 1.0em;
+            }
+        }
+    }
+}
