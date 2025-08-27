@@ -75,6 +75,14 @@ const Rail = class {
         });
     });
 
+    checkRefresh = (() => {
+        const date = new Date;
+
+        if (date.getSeconds() === 0)
+            return true;
+        return false;
+    });
+
     loadHeader = (() => {
         return this.jQuery('main')
         .append('<div class=\"main-row-header\"><div class=\"main-col-time\">time<\/div><div class=\"main-col-dest\">destination<\/div><div class=\"main-col-plat\">plat.<\/div><div class=\"main-col-issue\"><\/div><div class=\"main-col-exp\">expected<\/div><div class=\"main-col-formed\">formed<\/div><\/div>');
