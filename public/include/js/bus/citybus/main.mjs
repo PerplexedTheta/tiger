@@ -45,6 +45,8 @@ const Bus = class {
         })
         .fail(error => {
             console.error(error);
+
+            window.location.href = '/' + error.status;
         });
     });
 
@@ -135,15 +137,17 @@ const Bus = class {
     });
 
     setTitle = ((station = '') => {
+        let titleText = '';
         let headlineText = '';
 
         if (station === '') {
-            headlineText = '404 \u2013 Not Found';
-            this.jQuery('main')
-            .html('<p class=\"errors\">The stop ID entered is not valid.<\/p>');
+            window.location.href = '/404';
         } else {
             headlineText = 'Departures from ' + station;
         }
+
+        this.jQuery('title')
+        .text(station + ' Bus Times');
 
         return this.jQuery('h1#headline')
         .text(headlineText);
