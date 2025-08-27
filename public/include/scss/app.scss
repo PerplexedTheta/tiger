@@ -84,10 +84,14 @@
 
         .main-col-time,
         .main-col-dest,
+        .main-col-laststop,
         .main-col-plat,
+        .main-col-line,
         .main-col-issue,
         .main-col-exp,
-        .main-col-formed {
+        .main-col-due,
+        .main-col-formed,
+        .main-col-rtpi {
             overflow-x: hidden;
             padding: 0.125em 0.25em;
             margin-bottom: 0.25em;
@@ -102,13 +106,24 @@
         .main-col-dest {
             overflow-x: scroll;
             width: 35%;
-            color: var(--doc-fg);
 
             span.toc,
             span.tyrell {
                 display: block;
                 margin: 0.50em 0;
-                color: var(--doc-fg);
+                color: var(--doc-fg-important);
+                font-weight: normal;
+                font-size: 0.75em;
+                white-space: wrap;
+            }
+        }
+        .main-col-laststop {
+            width: 50%;
+
+            span.busco {
+                display: block;
+                margin: 0.50em 0;
+                color: var(--doc-fg-important);
                 font-weight: normal;
                 font-size: 0.75em;
                 white-space: wrap;
@@ -123,6 +138,9 @@
                 padding: 0 0.125em;
             }
         }
+        .main-col-line {
+            width: 11%;
+        }
         .main-col-issue {
             display: none;
             width: 0;
@@ -136,8 +154,26 @@
                 padding: 0 0.125em;
             }
         }
+        .main-col-due {
+            width: 16%;
+
+            span.cancelled {
+                background: var(--doc-fg-important);
+                color: var(--doc-bg);
+                padding: 0 0.125em;
+            }
+        }
         .main-col-formed {
             width: 20.75%;
+        }
+        .main-col-rtpi {
+            width: 23%;
+
+            span.rtpi {
+                background: var(--doc-fg-important);
+                color: var(--doc-bg);
+                padding: 0 0.125em;
+            }
         }
     }
 
@@ -161,10 +197,13 @@
         main {
             .main-col-time,
             .main-col-dest,
+            .main-col-laststop,
             .main-col-plat,
+            .main-col-line,
             .main-col-issue,
             .main-col-exp,
-            .main-col-formed {
+            .main-col-due,
+            .main-col-rtpi {
                 font-size: 1.0em;
             }
         }

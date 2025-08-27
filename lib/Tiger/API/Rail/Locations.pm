@@ -31,14 +31,14 @@ sub list {
     my $json         = $controller->req->json;
 
     my $config  = Tiger::Env::Config->new;
-    my $baseurl = $config->{api}->{upstream_api_url};
+    my $baseurl = $config->{rail}->{api}->{upstream_api_url};
 
     my $request = HTTP::Request->new( 'GET', $baseurl . '/locations' );
     my $ua      = LWP::UserAgent->new;
 
-    $request->header( 'User-Agent'                          => 'perl/"$^V' );
-    $request->header( 'Content-Type'                        => 'application/json' );
-    $request->header( $config->{api}->{upstream_api_header} => $config->{api}->{upstream_api_key} );
+    $request->header( 'User-Agent'                                  => 'perl/"$^V' );
+    $request->header( 'Content-Type'                                => 'application/json' );
+    $request->header( $config->{rail}->{api}->{upstream_api_header} => $config->{rail}->{api}->{upstream_api_key} );
 
     my $response = $ua->request($request);
     my $content  = JSON->new->decode( $response->{_content} );

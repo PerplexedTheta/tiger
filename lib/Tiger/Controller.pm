@@ -20,8 +20,6 @@ use warnings;
 
 use Modern::Perl;
 
-use Tiger::Controller::Index;
-
 sub new {
     my ( $class, $args ) = @_;
     my $self = {};
@@ -55,6 +53,11 @@ sub routes {
     $r->get('/rail/:tiploc_id')->to(
         namespace  => 'Tiger',
         controller => 'Controller::Rail::Index',
+        action     => 'mainpage',
+    );
+    $r->get('/bus/citybus/:stop_id')->to(
+        namespace  => 'Tiger',
+        controller => 'Controller::Bus::CityBus::Index',
         action     => 'mainpage',
     );
     $r->any('/')->to(

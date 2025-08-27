@@ -4,6 +4,39 @@ info:
   title: "tiger API"
   version: 0.0.1
 paths: 
+  /bus/CityBus/locations: 
+    get:
+      operationId: "listCityBusLocations"
+      summary: "Get all available CityBus stops"
+      x-mojo-name: "list_citybus_locations"
+      x-mojo-to: "API::Bus::CityBus::Locations#list"
+      responses: 
+        200: 
+          content: 
+            application/json: 
+              schema: 
+                type: "object"
+          description: "CityBus Locations response"
+  /bus/CityBus/services/{stop_id}: 
+    get:
+      operationId: "getCityBusServices"
+      parameters:
+        - description: "Internal stop identifier"
+          name: "stop_id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      summary: "Get data from CityBus Services based on stop code"
+      x-mojo-name: "get_citybus_services"
+      x-mojo-to: "API::Bus::CityBus::Services#get"
+      responses: 
+        200: 
+          content: 
+            application/json: 
+              schema: 
+                type: "object"
+          description: "CityBus Services response"
   /hello_world: 
     get:
       operationId: "getHelloWorld"

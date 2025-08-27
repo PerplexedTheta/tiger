@@ -19,8 +19,14 @@ const Rail = class {
         .done(data => {
             this.services = data.services;
             this.resetDOM();
-            this.loadHeader();
+
+            if (data.services === undefined) {
+                this.setTitle( '' );
+                return;
+            }
             this.setTitle( data.Name );
+
+            this.loadHeader();
 
             this.services.forEach(service => {
                 if (service.STD === '')

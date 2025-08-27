@@ -13,7 +13,7 @@
 %]
 
 <nav>
-    <img id="rail-logo" src="res/vectors/rail-icon.svg" />
+    <img id="rail-logo" src="res/vectors/bus-icon.svg" />
     <h1 id="headline">&nbsp;</h1>
 </nav>
 
@@ -34,22 +34,22 @@
 
 [% INCLUDE 'include/doc-body-scripts.inc.tt2' %]
 <script type="module">
-    import API from './include/js/rail/tiger-api.mjs';
+    import API from './include/js/bus/citybus/citybus-api.mjs';
     import Clock from './include/js/clock.mjs';
-    import Rail from './include/js/rail/main.mjs';
+    import Bus from './include/js/bus/citybus/main.mjs';
 
-    const api = new API({ jquery: jQuery, tiploc_id: '[% tiploc_id %]' });
+    const api = new API({ jquery: jQuery, stop_id: '[% stop_id %]' });
     api.init();
 
     const clock = new Clock({ jquery: jQuery });
     clock.init();
 
-    const rail = new Rail({ api: api, jquery: jQuery });
-    rail.init();
+    const bus = new Bus({ api: api, jquery: jQuery });
+    bus.init();
     setInterval(
         (() => {
-            if (rail.checkRefresh() === true)
-                return rail.build();
+            if (bus.checkRefresh() === true)
+                return bus.build();
             return;
         }),
         950

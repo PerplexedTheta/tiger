@@ -13,7 +13,7 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
-package Tiger::API::Rail::Services;
+package Tiger::API::Bus::CityBus::Locations;
 
 use strict;
 use warnings;
@@ -25,34 +25,23 @@ use Mojo::Base 'Mojolicious::Controller', -signatures;
 
 use Tiger::Env::Config;
 
-sub get {
+sub list {
     my ($app)        = @_;
     my ($controller) = $app->openapi->valid_input or return;
     my $json         = $controller->req->json;
 
-    return $controller->render(
-        status  => 404,
-        openapi => {
-            errors => [
-                {
-                    error   => 'not_found',
-                    message => 'no tiploc_id found',
-                }
-            ],
-        },
-    ) unless $controller->param('tiploc_id');
-
-    my $tiploc_id = $controller->param('tiploc_id');
-
     my $config  = Tiger::Env::Config->new;
-    my $baseurl = $config->{rail}->{api}->{upstream_api_url};
+    my $baseurl = $config->{bus}->{CityBus}->{api}->{upstream_api_url};
 
-    my $request = HTTP::Request->new( 'GET', $baseurl . '/services/' . $tiploc_id );
-    my $ua      = LWP::UserAgent->new;
+    my $request = HTTP::Request->new(
+        'GET',
+        $baseurl
+            . '/_ajax/stops?bounds[]=50.429033174764115,-4.2930661539352&bounds[]=50.33981886720703,-4.023126393385939'
+    );
+    my $ua = LWP::UserAgent->new;
 
-    $request->header( 'User-Agent'                                  => 'perl/"$^V' );
-    $request->header( 'Content-Type'                                => 'application/json' );
-    $request->header( $config->{rail}->{api}->{upstream_api_header} => $config->{rail}->{api}->{upstream_api_key} );
+    $request->header( 'User-Agent'   => 'perl/"$^V' );
+    $request->header( 'Content-Type' => 'application/json' );
 
     my $response = $ua->request($request);
     my $content  = JSON->new->decode( $response->{_content} );

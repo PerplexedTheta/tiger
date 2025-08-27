@@ -13,7 +13,7 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
-package Tiger::Controller::Index;
+package Tiger::Controller::Bus::CityBus::Index;
 
 use strict;
 use warnings;
@@ -25,11 +25,19 @@ sub mainpage {
     my ($controller) = @_ or return;
     my ($app)        = $controller->app;
 
+    my $stop_id = $controller->param('stop_id');
+    return
+        unless $stop_id;
+
+    my $display_mode = $controller->param('display_mode');
+
     ## render the template
     return $controller->render(
-        title    => 'Welcome',
-        template => 'mainpage',
-        handler  => 'tt2',
+        display_mode => $display_mode || 'dark',
+        stop_id    => $stop_id,
+        title        => $stop_id . ' Bus Times',
+        template     => 'bus/citybus/mainpage',
+        handler      => 'tt2',
     );
 }
 
