@@ -29,15 +29,17 @@ sub mainpage {
     return
         unless $stop_id;
 
-    my $display_mode = $controller->param('display_mode');
+    my $theme     = $controller->param('theme') || 'dark';
+    my $hide_secs = ( $controller->param('hide_secs') ) ? 1 : undef;
 
     ## render the template
     return $controller->render(
-        display_mode => $display_mode || 'dark',
-        stop_id    => $stop_id,
-        title        => $stop_id . ' Bus Times',
-        template     => 'bus/citybus/mainpage',
-        handler      => 'tt2',
+        hide_secs => $hide_secs,
+        stop_id   => $stop_id,
+        theme     => $theme,
+        title     => $stop_id . ' Bus Times',
+        template  => 'bus/citybus/mainpage',
+        handler   => 'tt2',
     );
 }
 

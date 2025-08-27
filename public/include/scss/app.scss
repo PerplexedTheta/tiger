@@ -71,7 +71,8 @@
         }
 
         .main-row {
-            .main-col-dest {
+            .main-col-dest,
+            .main-col-laststop {
                 font-weight: bold;
             }
         }
@@ -118,6 +119,7 @@
             }
         }
         .main-col-laststop {
+            overflow-x: scroll;
             width: 50%;
 
             span.busco {

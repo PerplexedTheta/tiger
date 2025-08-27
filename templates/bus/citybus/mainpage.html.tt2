@@ -41,7 +41,7 @@
     const api = new API({ jquery: jQuery, stop_id: '[% stop_id %]' });
     api.init();
 
-    const clock = new Clock({ jquery: jQuery });
+    const clock = new Clock({ jquery: jQuery, hideSecs: '[% hide_secs %]' });
     clock.init();
 
     const bus = new Bus({ api: api, jquery: jQuery });

@@ -2,7 +2,7 @@ const Clock = class {
     constructor(config) {
         this.date = undefined;
         this.jQuery = config.jquery;
-        this.span = this.jQuery('span#clock').first();
+        this.hideSecs = config.hideSecs;
     };
 
     init = (() => {
@@ -21,7 +21,12 @@ const Clock = class {
         let MM = this.format(this.date.getMinutes());
         let SS = this.format(this.date.getSeconds());
 
-        return this.span.text(HH + ':' + MM + ':' + SS);
+        let time = HH + ':' + MM;
+        if (this.hideSecs !== '1')
+            time = time + ':' + SS;
+
+        return this.jQuery('span#clock').first()
+        .text(time);
     });
 
     format = (input => {

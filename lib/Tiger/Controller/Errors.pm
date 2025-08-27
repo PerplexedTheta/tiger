@@ -35,6 +35,7 @@ sub forbidden {
         status   => '403',
         error    => $error_map->{forbidden},
         message  => 'This document or endpoint is not consumable by the public. Please try again.',
+        theme    => 'dark',
         template => 'errors',
         handler  => 'tt2',
     );
@@ -49,6 +50,7 @@ sub not_found {
         status   => '404',
         error    => $error_map->{not_found},
         message  => 'This document or endpoint does not exist. Please try again.',
+        theme    => 'dark',
         template => 'errors',
         handler  => 'tt2',
     );
