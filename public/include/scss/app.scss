@@ -24,6 +24,26 @@
     font-weight: normal;
     line-height: 1.20;
 
+    div#loading {
+        display: flex;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 9999;
+        background: var(--doc-bg);
+
+        div.dialog {
+            display: block;
+            position: relative;
+            margin: auto auto;
+            padding: 1em;
+            border: 3px solid var(--doc-fg);
+            font-weight: bold;
+        }
+    }
+
     nav {
         display: flex;
         flex: 0 1 auto;

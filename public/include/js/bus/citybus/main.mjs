@@ -9,7 +9,11 @@ const Bus = class {
         this.locations = this.fetchLocations();
         this.services = undefined;
 
-        this.build();
+        this.build()
+        .then(() => {
+            this.jQuery('#loading')
+            .hide();
+        });
 
         return;
     });

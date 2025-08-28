@@ -12,21 +12,16 @@
   class=""
 %]
 
+<div id="loading">
+    <div class="dialog">Loading . . . </div>
+</div>
+
 <nav>
     <img id="rail-logo" src="res/vectors/bus-icon.svg" />
     <h1 id="headline">&nbsp;</h1>
 </nav>
 
-<main>
-    <div class="main-row" data-uid="undefined">
-        <div class="main-col-time"></div>
-        <div class="main-col-dest">&nbsp;</div>
-    </div>
-    <div class="main-row" data-uid="undefined">
-        <div class="main-col-time"></div>
-        <div class="main-col-dest">Loading . . . </div>
-    </div>
-</main>
+<main></main>
 
 <footer>
     <div style="visibility:hidden">
