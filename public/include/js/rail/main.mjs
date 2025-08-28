@@ -42,10 +42,12 @@ const Rail = class {
                 this.setTyrell(uid, service.Comments);
                 this.setPlat(uid, service.Platform, service.PlatformChanged);
                 this.setExp(uid, this.STD, service.ETD, service.Delay);
+                this.setIssue(uid, service.Incident);
                 this.setFormed(uid, service.Destinations.Front.Coaches);
             });
 
             this.checkHomework();
+            this.setIncident( data.incidentSummary );
         })
         .fail(error => {
             console.error(error);
@@ -124,11 +126,34 @@ const Rail = class {
     setFormed = ((uid, formed = undefined) => {
         let pluralisation = (formed > 1) ? 'coaches' : 'coach';
 
-        if (formed === undefined)
+        if (formed === undefined || formed === '')
             return;
 
         return this.jQuery('div[data-uid="' + uid + '"]').find('div.main-col-formed').first()
         .text(formed + ' ' + pluralisation);
+    });
+
+    setIncident = (incident => {
+        if (incident === '') {
+            this.jQuery('#incident').parent('div').first()
+            .css('visibility', 'hidden');
+
+            return;
+        } else {
+            this.jQuery('#incident').parent('div').first()
+            .css('visibility', 'visible');
+
+            return this.jQuery('#incident').first()
+            .text(incident);
+        }
+    });
+
+    setIssue = ((uid, issue = undefined) => {
+        if (issue === undefined || issue === '')
+            return;
+
+        return this.jQuery('div[data-uid="' + uid + '"]').find('div.main-col-exp').first()
+        .append('<span class=\"issue\"><i><\/i><\/span>');
     });
 
     setPlat = ((uid, platform = '', platformChanged = false) => {
@@ -186,7 +211,7 @@ const Rail = class {
     });
 
     setTyrell = ((uid, comments = undefined) => {
-        if (comments === undefined)
+        if (comments === undefined || comments === '')
             return;
 
         let tyrell = '';
@@ -203,7 +228,7 @@ const Rail = class {
     });
 
     setVia = ((uid, via = undefined) => {
-        if (via === undefined)
+        if (via === undefined || via === '')
             return;
     
         return this.jQuery('div[data-uid="' + uid + '"]').find('div.main-col-dest .toc').first()

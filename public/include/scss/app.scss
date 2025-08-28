@@ -29,6 +29,7 @@
         flex: 0 1 auto;
         flex-direction: row;
         justify-content: start;
+        align-content: center;
         padding: 0.75em 1em;
         border-bottom: 3px solid var(--doc-fg);
 
@@ -85,12 +86,10 @@
 
         .main-col-time,
         .main-col-dest,
-        .main-col-laststop,
         .main-col-plat,
         .main-col-line,
         .main-col-issue,
         .main-col-exp,
-        .main-col-due,
         .main-col-formed,
         .main-col-rtpi {
             overflow-x: hidden;
@@ -108,6 +107,7 @@
             overflow-x: scroll;
             width: 35%;
 
+            span.busco,
             span.toc,
             span.tyrell {
                 display: block;
@@ -118,20 +118,8 @@
                 white-space: wrap;
             }
         }
-        .main-col-laststop {
-            overflow-x: scroll;
-            width: 50%;
-
-            span.busco {
-                display: block;
-                margin: 0.50em 0;
-                color: var(--doc-fg-important);
-                font-weight: normal;
-                font-size: 0.75em;
-                white-space: wrap;
-            }
-        }
-        .main-col-plat {
+        .main-col-plat,
+        .main-col-line {
             width: 11%;
 
             span.amendment {
@@ -139,9 +127,6 @@
                 color: var(--doc-bg);
                 padding: 0 0.125em;
             }
-        }
-        .main-col-line {
-            width: 11%;
         }
         .main-col-issue {
             display: none;
@@ -155,21 +140,24 @@
                 color: var(--doc-bg);
                 padding: 0 0.125em;
             }
-        }
-        .main-col-due {
-            width: 16%;
+            span.issue {
+                display: block;
+                margin: 0.50em 0;
+                color: var(--doc-fg-important);
+                font-weight: normal;
+                font-size: 0.75em;
+                white-space: wrap;
 
-            span.cancelled {
-                background: var(--doc-fg-important);
-                color: var(--doc-bg);
-                padding: 0 0.125em;
+                i {
+                    padding: 0 0.75em;
+                    background: var(--doc-fg-important) url('/res/vectors/triangle-exclamation.svg') no-repeat center center;
+                    background-size: contain;
+                }
             }
         }
-        .main-col-formed {
-            width: 20.75%;
-        }
+        .main-col-formed,
         .main-col-rtpi {
-            width: 23%;
+            width: 20.75%;
 
             span.rtpi {
                 background: var(--doc-fg-important);
@@ -183,9 +171,22 @@
         display: flex;
         flex-direction: row;
         flex: 0 1 auto;
-        justify-content: end;
+        justify-content: space-between;
         padding: 0.33em 1em;
         border-top: 3px solid var(--doc-fg);
+
+        div {
+            align-content: center;
+        }
+
+        span#incident {
+            padding: 0 .125em 0 1.50em;
+            background: var(--doc-fg-important) url('/res/vectors/triangle-exclamation.svg') no-repeat left center;
+            background-size: contain;
+            color: var(--doc-bg);
+            font-size: 0.75em;
+            font-weight: bold;
+        }
 
         span#clock {
             font-size: 1.33em;
@@ -199,12 +200,11 @@
         main {
             .main-col-time,
             .main-col-dest,
-            .main-col-laststop,
             .main-col-plat,
             .main-col-line,
             .main-col-issue,
             .main-col-exp,
-            .main-col-due,
+            .main-col-formed,
             .main-col-rtpi {
                 font-size: 1.0em;
             }

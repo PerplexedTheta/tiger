@@ -29,7 +29,12 @@
 </main>
 
 <footer>
-    <span id="clock">&nbsp;</span>
+    <div style="visibility:hidden">
+        <span id="incident"></span>
+    </div>
+    <div>
+        <span id="clock">&nbsp;</span>
+    </div>
 </footer>
 
 [% INCLUDE 'include/doc-body-scripts.inc.tt2' %]
