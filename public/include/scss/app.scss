@@ -135,7 +135,8 @@
         .main-col-exp {
             width: 20.75%;
 
-            span.cancelled {
+            span.cancelled,
+            span.due {
                 background: var(--doc-fg-important);
                 color: var(--doc-bg);
                 padding: 0 0.125em;

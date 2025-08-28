@@ -117,8 +117,11 @@ const Bus = class {
     });
 
     setExp = ((idx, due) => {
+        if (due === 'Due')
+            due = '<span class=\"due\">Due<\/span>';
+    
         return this.jQuery('div[data-idx="' + idx + '"]').find('div.main-col-exp').first()
-        .text(due);
+        .html(due);
     });
 
     setIncident = (incident => {
