@@ -129,11 +129,19 @@ const Bus = class {
     });
 
     setIncident = (incident => {
-        this.jQuery('#incident').parent('div').first()
-        .css('visibility', 'visible');
+        if (incident === '') {
+            this.jQuery('#incident').parent('div').first()
+            .css('visibility', 'hidden');
 
-        return this.jQuery('#incident').first()
-        .text(incident);
+            return this.jQuery('#incident').first()
+            .text('');
+        } else {
+            this.jQuery('#incident').parent('div').first()
+            .css('visibility', 'visible');
+
+            return this.jQuery('#incident').first()
+            .text(incident);
+        }
     });
 
     setLine = ((idx, line) => {

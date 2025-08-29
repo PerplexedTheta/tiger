@@ -138,11 +138,13 @@ const Rail = class {
     });
 
     setIncident = (incident => {
+        console.log(incident);
         if (incident === '') {
             this.jQuery('#incident').parent('div').first()
             .css('visibility', 'hidden');
 
-            return;
+            return this.jQuery('#incident').first()
+            .text('');
         } else {
             this.jQuery('#incident').parent('div').first()
             .css('visibility', 'visible');
@@ -154,7 +156,8 @@ const Rail = class {
 
     setIssue = ((uid, issue = undefined) => {
         if (issue === undefined || issue === '')
-            return;
+            return this.jQuery('div[data-uid="' + uid + '"]').find('div.main-col-exp').find('span.issue').first()
+            .remove();
 
         return this.jQuery('div[data-uid="' + uid + '"]').find('div.main-col-exp').first()
         .append('<span class=\"issue\"><i><\/i><\/span>');
