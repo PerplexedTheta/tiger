@@ -29,13 +29,11 @@ sub mainpage {
     return
         unless $tiploc_id;
 
-    my $theme = $controller->param('theme') || 'dark';
     my $hide_secs = ( $controller->param('hide_secs') ) ? 1 : undef;
 
     ## render the template
     return $controller->render(
         hide_secs => $hide_secs,
-        theme     => $theme,
         tiploc_id => $tiploc_id,
         title     => $tiploc_id . ' Train Times',
         template  => 'rail/mainpage',

@@ -29,14 +29,12 @@ sub mainpage {
     return
         unless $stop_id;
 
-    my $theme     = $controller->param('theme') || 'dark';
     my $hide_secs = ( $controller->param('hide_secs') ) ? 1 : undef;
 
     ## render the template
     return $controller->render(
         hide_secs => $hide_secs,
         stop_id   => $stop_id,
-        theme     => $theme,
         title     => $stop_id . ' Bus Times',
         template  => 'bus/citybus/mainpage',
         handler   => 'tt2',

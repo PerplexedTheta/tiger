@@ -1,4 +1,4 @@
 </head>
 
-<body id="[% id %]" class="[% class %]" data-theme="[% theme %]">
+<body id="[% id %]" class="[% class %]">
     <div id="wrapper">

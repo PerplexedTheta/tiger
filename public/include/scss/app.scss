@@ -14,15 +14,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 :root {
-    body[data-theme="dark"] {
-        --doc-triangle-exclamation: url('/res/vectors/triangle-exclamation.svg');
-    }
-    body[data-theme="light"] {
-        --doc-triangle-exclamation: url('/res/vectors/triangle-exclamation-light.svg');
-    }
-    body[data-theme="acep"] {
-        --doc-triangle-exclamation: url('/res/vectors/triangle-exclamation.svg');
-    }
+    --doc-triangle-exclamation: url('/res/vectors/triangle-exclamation-light.svg');
 }
 
 #wrapper {
@@ -155,7 +147,7 @@
             width: 11%;
 
             span.amendment {
-                background: var(--doc-fg-important);
+                background: var(--doc-blue);
                 color: var(--doc-bg);
                 padding: 0 0.125em;
             }
@@ -169,9 +161,14 @@
 
             span.cancelled,
             span.due {
-                background: var(--doc-fg-important);
                 color: var(--doc-bg);
                 padding: 0 0.125em;
+            }
+            span.cancelled {
+                background: var(--doc-red);
+            }
+            span.due {
+                background: var(--doc-green);
             }
             span.issue {
                 display: block;
@@ -183,7 +180,7 @@
 
                 i {
                     padding: 0 0.75em;
-                    background: var(--doc-fg-important) var(--doc-triangle-exclamation) no-repeat center center;
+                    background: var(--doc-orange) var(--doc-triangle-exclamation) no-repeat center center;
                     background-size: contain;
                 }
             }
@@ -193,7 +190,7 @@
             width: 20.75%;
 
             span.rtpi {
-                background: var(--doc-fg-important);
+                background: var(--doc-blue);
                 color: var(--doc-bg);
                 padding: 0 0.125em;
             }
@@ -214,7 +211,7 @@
 
         span#incident {
             padding: 0 .125em 0 1.50em;
-            background: var(--doc-fg-important) var(--doc-triangle-exclamation) no-repeat left center;
+            background: var(--doc-orange) var(--doc-triangle-exclamation) no-repeat left center;
             background-size: contain;
             color: var(--doc-bg);
             font-size: 0.75em;
@@ -225,6 +222,12 @@
             font-size: 1.33em;
             font-weight: normal;
         }
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --doc-triangle-exclamation: url('/res/vectors/triangle-exclamation.svg');
     }
 }
 

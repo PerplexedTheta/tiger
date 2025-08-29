@@ -22,14 +22,29 @@
     font-size: 16px;
     --doc-fonts: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 
-    // note that eink displays are monochrome
-    body[data-theme="dark"] {
+    --doc-bg: rgba(255, 255, 255, 1.0);
+    --doc-bg-important: rgba(255, 255, 255, 0.85);
+    --doc-fg: rgba(35, 31, 32, 1.0);
+    --doc-fg-important: rgba(35, 31, 32, 0.85);
+
+    // acep displays have 5 additional colours
+    --doc-red: rgba(200, 80, 80, 1.0);
+    --doc-green: rgba(50, 100, 60, 1.0);
+    --doc-blue: rgba(50, 50, 120, 1.0);
+    --doc-orange: rgba(200, 120, 100, 1.0);
+    --doc-yellow: rgba(230, 210, 100, 1.0);
+
+    --doc-inverse: invert(0);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
         --doc-bg: rgba(35, 31, 32, 1.0);
         --doc-bg-important: rgba(35, 31, 32, 0.85);
         --doc-fg: rgba(255, 255, 255, 1.0);
         --doc-fg-important: rgba(255, 255, 255, 0.85);
 
-        // use acep if you want colour
+        // use acep (light mode) if you want colour
         --doc-red: var(--doc-fg);
         --doc-green: var(--doc-fg);
         --doc-blue: var(--doc-fg);
@@ -37,36 +52,6 @@
         --doc-orange: var(--doc-fg);
 
         --doc-inverse: invert(1);
-    }
-    body[data-theme="light"] {
-        --doc-bg: rgba(255, 255, 255, 1.0);
-        --doc-bg-important: rgba(255, 255, 255, 0.85);
-        --doc-fg: rgba(35, 31, 32, 1.0);
-        --doc-fg-important: rgba(35, 31, 32, 0.85);
-
-        // use acep if you want colour
-        --doc-red: var(--doc-fg);
-        --doc-green: var(--doc-fg);
-        --doc-blue: var(--doc-fg);
-        --doc-yellow: var(--doc-fg);
-        --doc-orange: var(--doc-fg);
-
-        --doc-inverse: invert(0);
-    }
-    body[data-theme="acep"] {
-        --doc-bg: rgba(255, 255, 255, 1.0);
-        --doc-bg-important: rgba(255, 255, 255, 0.85);
-        --doc-fg: rgba(35, 31, 32, 1.0);
-        --doc-fg-important: rgba(35, 31, 32, 0.85);
-
-        // acep displays have 5 additional colours
-        --doc-red: rgba(200, 80, 80, 1.0);
-        --doc-green: rgba(50, 100, 60, 1.0);
-        --doc-blue: rgba(50, 50, 120, 1.0);
-        --doc-orange: rgba(200, 120, 100, 1.0);
-        --doc-yellow: rgba(230, 210, 100, 1.0);
-
-        --doc-inverse: invert(0);
     }
 }
 
