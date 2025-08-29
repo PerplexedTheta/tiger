@@ -13,6 +13,18 @@
 //  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
+:root {
+    body[data-theme="dark"] {
+        --doc-triangle-exclamation: url('/res/vectors/triangle-exclamation.svg');
+    }
+    body[data-theme="light"] {
+        --doc-triangle-exclamation: url('/res/vectors/triangle-exclamation-light.svg');
+    }
+    body[data-theme="acep"] {
+        --doc-triangle-exclamation: url('/res/vectors/triangle-exclamation.svg');
+    }
+}
+
 #wrapper {
     display: flex;
     flex-direction: column;
@@ -171,7 +183,7 @@
 
                 i {
                     padding: 0 0.75em;
-                    background: var(--doc-fg-important) url('/res/vectors/triangle-exclamation.svg') no-repeat center center;
+                    background: var(--doc-fg-important) var(--doc-triangle-exclamation) no-repeat center center;
                     background-size: contain;
                 }
             }
@@ -202,7 +214,7 @@
 
         span#incident {
             padding: 0 .125em 0 1.50em;
-            background: var(--doc-fg-important) url('/res/vectors/triangle-exclamation.svg') no-repeat left center;
+            background: var(--doc-fg-important) var(--doc-triangle-exclamation) no-repeat left center;
             background-size: contain;
             color: var(--doc-bg);
             font-size: 0.75em;
