@@ -48,11 +48,9 @@
     bus.init();
     setInterval(
         (() => {
-            if (bus.checkRefresh() === true)
-                return bus.build();
-            return;
+            return bus.build();
         }),
-        950
+        20000
     );
 </script>
 [% INCLUDE 'include/doc-body-close.inc.tt2' %]

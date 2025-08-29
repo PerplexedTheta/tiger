@@ -48,11 +48,9 @@
     rail.init();
     setInterval(
         (() => {
-            if (rail.checkRefresh() === true)
-                return rail.build();
-            return;
+            return rail.build();
         }),
-        950
+        20000
     );
 </script>
 [% INCLUDE 'include/doc-body-close.inc.tt2' %]
