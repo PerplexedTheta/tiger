@@ -25,10 +25,10 @@ const Bus = class {
             this.resetDOM();
 
             if (data.services === undefined) {
-                this.setTitle( '' );
+                this.setTitle('');
                 return;
             }
-            this.setTitle( data.name );
+            this.setTitle(data.name);
 
             this.loadHeader();
 
@@ -106,10 +106,10 @@ const Bus = class {
     });
 
     setBusCo = ((idx, busco = 'Plymouth CityBus') => {
-        let article_map = {
+        let articleMap = {
             '*': 'A',
         };
-        let article = article_map[busco] || article_map['*'];
+        let article = articleMap[busco] || articleMap['*'];
 
         return this.jQuery('div[data-idx="' + idx + '"]').find('div.main-col-dest').first()
             .append('<span class=\"busco\">' + article + ' ' + busco + ' service<\/span>');

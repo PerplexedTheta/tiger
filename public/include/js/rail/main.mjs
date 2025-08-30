@@ -25,10 +25,10 @@ const Rail = class {
             this.resetDOM();
 
             if (data.services === undefined) {
-                this.setTitle( '' );
+                this.setTitle('');
                 return;
             }
-            this.setTitle( data.Name );
+            this.setTitle(data.Name);
 
             this.loadHeader();
 
@@ -51,7 +51,7 @@ const Rail = class {
             });
 
             this.checkHomework();
-            this.setIncident( data.incidentSummary );
+            this.setIncident(data.incidentSummary);
         })
         .fail(error => {
             console.error(error);
@@ -197,7 +197,7 @@ const Rail = class {
     });
 
     setToc = ((uid, toc = 'GWR') => {
-        let article_map = {
+        let articleMap = {
             'Avanti West Coast': 'An',
             'Elizabeth line': 'An',
             'EMR': 'An',
@@ -208,7 +208,7 @@ const Rail = class {
             'SWR Arterio': 'An',
             '*': 'A',
         };
-        let article = article_map[toc] || article_map['*'];
+        let article = articleMap[toc] || articleMap['*'];
 
         if (toc === 'Bus service')
             toc = 'bus';
