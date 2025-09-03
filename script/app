@@ -14,7 +14,12 @@ my $c = Mojolicious::Commands->new;
 $c->detect;
 $ENV{'MOJO_CONF'}  ||= "$FindBin::Bin/../tiger.yml";
 $ENV{'MOJO_PROTO'} ||= 'http';
+$ENV{'MOJO_ADDR'}  ||= '[::1]';
 $ENV{'MOJO_PORT'}  ||= 3000;
 
 ## run app
-$c->start_app( 'Tiger', 'daemon', '-l', $ENV{'MOJO_PROTO'} . '://*:' . $ENV{'MOJO_PORT'} );
+$c->start_app(
+    'Tiger',
+    'daemon',
+    '-l', $ENV{'MOJO_PROTO'} . '://' . $ENV{'MOJO_ADDR'} . ':' . $ENV{'MOJO_PORT'},
+);
