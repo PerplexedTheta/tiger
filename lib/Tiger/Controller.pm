@@ -50,15 +50,25 @@ sub routes {
         or return;
 
     ## set routes
+    $r->get('/rail/')->to(
+        namespace  => 'Tiger',
+        controller => 'Controller::Rail::Mainpage',
+        action     => 'mainpage',
+    );
     $r->get('/rail/:tiploc_id')->to(
         namespace  => 'Tiger',
-        controller => 'Controller::Rail::Index',
+        controller => 'Controller::Rail::Display',
+        action     => 'display',
+    );
+    $r->get('/bus/citybus/')->to(
+        namespace  => 'Tiger',
+        controller => 'Controller::Bus::CityBus::Mainpage',
         action     => 'mainpage',
     );
     $r->get('/bus/citybus/:stop_id')->to(
         namespace  => 'Tiger',
-        controller => 'Controller::Bus::CityBus::Index',
-        action     => 'mainpage',
+        controller => 'Controller::Bus::CityBus::Display',
+        action     => 'display',
     );
     $r->any('/')->to(
         namespace  => 'Tiger',

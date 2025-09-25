@@ -89,6 +89,22 @@
             font-weight: bold;
         }
 
+        #search {
+            width: 70%;
+            margin: 0 auto;
+            padding: 2em;
+
+            .input {
+                width: 100%;
+                padding: 0.25em;
+                border: 3px solid var(--doc-fg);
+
+                &::placeholder {
+                    text-align: right;
+                }
+            }
+        }
+
         .main-row,
         .main-row-header {
             display: flex;

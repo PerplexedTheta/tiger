@@ -4,24 +4,25 @@
   author_year='2025'
   author_name='Chaos Theory'
 %]
-[% INCLUDE 'include/doc-head-start.inc.tt2' %]
-<base href="/">
+[%
+  INCLUDE 'include/doc-head-start.inc.tt2'
+  title="$title"
+%]
 [%
   INCLUDE 'include/doc-head-close.inc.tt2'
   id="mainpage"
   class=""
 %]
 
-<div id="loading">
-    <div class="dialog">Loading . . . </div>
-</div>
-
 <nav>
-    <img id="rail-logo" src="res/vectors/rail-icon.svg" />
-    <h1 id="headline">&nbsp;</h1>
+    <h1 id="headline">400 &ndash; Bad Request</h1>
 </nav>
 
-<main></main>
+<main>
+    <div id="search">
+        <input name="input" class="input" type="text" placeholder="Enter station / stop name, and press Return" />
+    </div>
+</main>
 
 <footer>
     <div style="visibility:hidden">
@@ -34,23 +35,16 @@
 
 [% INCLUDE 'include/doc-body-scripts.inc.tt2' %]
 <script type="module">
-    import API from './include/js/rail/tiger-api.mjs';
-    import Clock from './include/js/clock.mjs';
-    import Rail from './include/js/rail/main.mjs';
+    import Clock from '/include/js/clock.mjs';
 
-    const api = new API({ jquery: jQuery, tiploc_id: '[% tiploc_id %]' });
-    api.init();
-
-    const clock = new Clock({ jquery: jQuery, hideSecs: '[% hide_secs %]' });
+    const clock = new Clock({ jquery: jQuery });
     clock.init();
-
-    const rail = new Rail({ api: api, jquery: jQuery });
-    rail.init();
-    setInterval(
-        (() => {
-            return rail.build();
-        }),
-        20000
-    );
+</script>
+<script>
+    \$('input[name="input"]').first()
+    .on('keyup', event => {
+        if (event.key === "Enter")
+            window.location.href = '/rail/' + \$('input[name="input"]').first().val();
+    });
 </script>
 [% INCLUDE 'include/doc-body-close.inc.tt2' %]

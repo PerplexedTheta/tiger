@@ -13,7 +13,7 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
-package Tiger::Controller::Bus::CityBus::Index;
+package Tiger::Controller::Rail::Display;
 
 use strict;
 use warnings;
@@ -21,22 +21,23 @@ use warnings;
 use Modern::Perl;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
 
-sub mainpage {
+sub display {
     my ($controller) = @_ or return;
     my ($app)        = $controller->app;
 
-    my $stop_id = $controller->param('stop_id');
+    my $tiploc_id = $controller->param('tiploc_id');
     return
-        unless $stop_id;
+        unless $tiploc_id;
 
     my $hide_secs = ( $controller->param('hide_secs') ) ? 1 : undef;
 
     ## render the template
     return $controller->render(
+        status    => '200',
         hide_secs => $hide_secs,
-        stop_id   => $stop_id,
-        title     => $stop_id . ' Bus Times',
-        template  => 'bus/citybus/mainpage',
+        tiploc_id => $tiploc_id,
+        title     => $tiploc_id . ' Train Times',
+        template  => 'rail/display',
         handler   => 'tt2',
     );
 }

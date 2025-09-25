@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+[%
+  INCLUDE 'include/doc-head-copyright.inc.tt2'
+  author_year='2025'
+  author_name='Chaos Theory'
+%]
+[% INCLUDE 'include/doc-head-start.inc.tt2' %]
+<base href="/">
+[%
+  INCLUDE 'include/doc-head-close.inc.tt2'
+  id="display"
+  class=""
+%]
+
+<div id="loading">
+    <div class="dialog">Loading . . . </div>
+</div>
+
+<nav>
+    <img id="rail-logo" src="res/vectors/bus-icon.svg" />
+    <h1 id="headline">&nbsp;</h1>
+</nav>
+
+<main></main>
+
+<footer>
+    <div style="visibility:hidden">
+        <span id="incident"></span>
+    </div>
+    <div>
+        <span id="clock">&nbsp;</span>
+    </div>
+</footer>
+
+[% INCLUDE 'include/doc-body-scripts.inc.tt2' %]
+<script type="module">
+    import API from './include/js/bus/citybus/citybus-api.mjs';
+    import Clock from './include/js/clock.mjs';
+    import Bus from './include/js/bus/citybus/main.mjs';
+
+    const api = new API({ jquery: jQuery, stop_id: '[% stop_id %]' });
+    api.init();
+
+    const clock = new Clock({ jquery: jQuery, hideSecs: '[% hide_secs %]' });
+    clock.init();
+
+    const bus = new Bus({ api: api, jquery: jQuery });
+    bus.init();
+    setInterval(
+        (() => {
+            return bus.build();
+        }),
+        20000
+    );
+</script>
+[% INCLUDE 'include/doc-body-close.inc.tt2' %]

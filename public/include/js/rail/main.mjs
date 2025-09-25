@@ -138,7 +138,6 @@ const Rail = class {
     });
 
     setIncident = (incident => {
-        console.log(incident);
         if (incident === '') {
             this.jQuery('#incident').parent('div').first()
             .css('visibility', 'hidden');

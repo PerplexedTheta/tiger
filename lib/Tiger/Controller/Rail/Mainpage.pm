@@ -13,7 +13,7 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
-package Tiger::Controller::Rail::Index;
+package Tiger::Controller::Rail::Mainpage;
 
 use strict;
 use warnings;
@@ -25,17 +25,10 @@ sub mainpage {
     my ($controller) = @_ or return;
     my ($app)        = $controller->app;
 
-    my $tiploc_id = $controller->param('tiploc_id');
-    return
-        unless $tiploc_id;
-
-    my $hide_secs = ( $controller->param('hide_secs') ) ? 1 : undef;
-
     ## render the template
     return $controller->render(
-        hide_secs => $hide_secs,
-        tiploc_id => $tiploc_id,
-        title     => $tiploc_id . ' Train Times',
+        status    => '400',
+        title     => 'Train Times',
         template  => 'rail/mainpage',
         handler   => 'tt2',
     );
