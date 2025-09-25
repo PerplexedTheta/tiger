@@ -60,6 +60,11 @@ sub routes {
         controller => 'Controller::Rail::Display',
         action     => 'display',
     );
+    $r->any('/bus/')->to(
+        namespace  => 'Tiger',
+        controller => 'Controller::Errors',
+        action     => 'forbidden',
+    );
     $r->get('/bus/citybus/')->to(
         namespace  => 'Tiger',
         controller => 'Controller::Bus::CityBus::Mainpage',
