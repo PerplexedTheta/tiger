@@ -3,6 +3,22 @@ const rename = require('gulp-rename');
 const sass = require('gulp-sass')(require('sass'));
 const sourcemaps = require('gulp-sourcemaps');
 
+gulp.task('bootstrap:build', function () {
+    return gulp.src('./public/include/scss/bootstrap.scss') // Path to your SASS files
+        .pipe(sourcemaps.init())
+        .pipe(sass({
+            style: 'compressed',
+            precision: 3,
+            silenceDeprecations: ['legacy-js-api', 'import', 'global-builtin', 'color-functions'],
+            quietDeps: true,
+            includePaths: ['node_modules/']
+        }).on('error', console.error))
+        .pipe(rename('bootstrap.min.css'))
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest('./public/lib/css')); // Output directory for CSS files
+});
+gulp.task('bootstrap', gulp.series('bootstrap:build'));
+
 gulp.task('css:build', function () {
     return gulp.src('./public/include/scss/build.scss') // Path to your SASS files
         .pipe(sourcemaps.init())

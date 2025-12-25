@@ -4,9 +4,10 @@ secrets:
 config:
   v1:
     bus:
-      CityBus:
+      citybus:
         api:
           upstream_api_url: 'https://www.plymouthbus.co.uk'
+          upstream_api_use_xmlhttprequest: false
     rail:
       api:
         upstream_api_url: 'https://tiger-api-portal.worldline.global'

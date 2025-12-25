@@ -6,7 +6,7 @@
 %]
 [%
   INCLUDE 'include/doc-head-start.inc.tt2'
-  title="$status &ndash; $error"
+  title="$title"
   use_bootstrap="1"
 %]
 [%
@@ -20,7 +20,7 @@
         <a class="navbar-brand" href="/">PerplexedTheta's TIGER</a>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link active" href="/">Home</a>
             </li>
         </ul>
     </div>
@@ -28,7 +28,7 @@
 
 <main class="flex-shrink-0 pt-3">
     <div class="container-fluid">
-        <h1 class="text-center fw-bold">[% status %] &ndash; [% error %]</h1>
+        <h1 class="text-center fw-bold">Select an option</h1>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span id="filter-label" class="input-group-text">Filter by</span>
@@ -37,10 +37,10 @@
         </div>
         <ul class="list-group text-center">
             <li class="list-group-item">
-                <a href="javascript:window.history.go(-1)">Go back</a>
+                <a href="/rail/uk/">UK Rail</a>
             </li>
             <li class="list-group-item">
-                <a href="/">Go to homepage</a>
+                <a href="/bus/uk/plymcitybus">Plymouth CityBus</a>
             </li>
         </ul>
     </div>

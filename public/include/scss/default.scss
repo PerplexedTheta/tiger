@@ -14,6 +14,9 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-@import "./variables";
-@import "./default";
-@import "./ecran";
+body#mainpage div#wrapper,
+body#ukrail div#wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}

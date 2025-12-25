@@ -14,6 +14,28 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-@import "./variables";
-@import "./default";
-@import "./ecran";
+const API = class {
+    constructor(config) {
+        this.jQuery = config.jquery;
+        this.locations = undefined;
+        this.tiploc_id = config.tiploc_id;
+    };
+
+    init = (() => {
+        return;
+    });
+
+    getLocations = (() => {
+        return this.jQuery.get('/api/v1/rail/uk/locations');
+    });
+
+    getServices = (() => {
+        return this.jQuery.get('/api/v1/rail/uk/services/' + this.tiploc_id);
+    });
+
+    getTiploc = (() => {
+        return this.tiploc_id;
+    });
+};
+
+export default API;

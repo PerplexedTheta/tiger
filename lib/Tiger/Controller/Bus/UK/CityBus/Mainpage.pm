@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 #   This file is part of tiger
 #
 #   Copyright 2025 PerplexedTheta
@@ -14,14 +13,24 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
+package Tiger::Controller::Bus::UK::CityBus::Mainpage;
+
 use strict;
 use warnings;
 
-use FindBin;
-use lib ( "$FindBin::Bin/../../lib", "$FindBin::Bin/../../local/lib/perl5" );
+use Modern::Perl;
+use Mojo::Base 'Mojolicious::Controller', -signatures;
 
-my $op = $ARGV[0] || "css:build";
+sub mainpage {
+    my ($controller) = @_ or return;
+    my ($app)        = $controller->app;
 
-system(qq{ cd "$FindBin::Bin/../.." && \$(which npx) gulp $op && exit 0 });
+    ## render the template
+    return $controller->render(
+        title    => 'Plymouth CityBus Times',
+        template => 'bus/uk/citybus/mainpage',
+        handler  => 'tt2',
+    );
+}
 
 1;

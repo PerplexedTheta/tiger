@@ -50,35 +50,55 @@ sub routes {
         or return;
 
     ## set routes
-    $r->get('/rail/')->to(
-        namespace  => 'Tiger',
-        controller => 'Controller::Rail::Mainpage',
-        action     => 'mainpage',
-    );
-    $r->get('/rail/:tiploc_id')->to(
-        namespace  => 'Tiger',
-        controller => 'Controller::Rail::Display',
-        action     => 'display',
-    );
-    $r->any('/bus/')->to(
+    $r->any('/bus')->to(
         namespace  => 'Tiger',
         controller => 'Controller::Errors',
         action     => 'forbidden',
     );
-    $r->get('/bus/citybus/')->to(
+    $r->any('/bus/uk')->to(
         namespace  => 'Tiger',
-        controller => 'Controller::Bus::CityBus::Mainpage',
+        controller => 'Controller::Errors',
+        action     => 'forbidden',
+    );
+    $r->get('/bus/uk/plymcitybus')->to(
+        namespace  => 'Tiger',
+        controller => 'Controller::Bus::UK::CityBus::Mainpage',
         action     => 'mainpage',
     );
-    $r->get('/bus/citybus/:stop_id')->to(
+    $r->get('/bus/uk/plymcitybus/:atco_id/arrivees')->to(
         namespace  => 'Tiger',
-        controller => 'Controller::Bus::CityBus::Display',
-        action     => 'display',
+        controller => 'Controller::Bus::UK::CityBus::Arrivees',
+        action     => 'arrivees',
+    );
+    $r->get('/bus/uk/plymcitybus/:atco_id/departs')->to(
+        namespace  => 'Tiger',
+        controller => 'Controller::Bus::UK::CityBus::Departs',
+        action     => 'departs',
+    );
+    $r->any('/rail')->to(
+        namespace  => 'Tiger',
+        controller => 'Controller::Errors',
+        action     => 'forbidden',
+    );
+    $r->get('/rail/uk')->to(
+        namespace  => 'Tiger',
+        controller => 'Controller::Rail::UK::Mainpage',
+        action     => 'mainpage',
+    );
+    $r->get('/rail/uk/:tiploc_id/arrivees')->to(
+        namespace  => 'Tiger',
+        controller => 'Controller::Rail::UK::Arrivees',
+        action     => 'arrivees',
+    );
+    $r->get('/rail/uk/:tiploc_id/departs')->to(
+        namespace  => 'Tiger',
+        controller => 'Controller::Rail::UK::Departs',
+        action     => 'departs',
     );
     $r->any('/')->to(
         namespace  => 'Tiger',
-        controller => 'Controller::Errors',
-        action     => 'forbidden',
+        controller => 'Controller::Index',
+        action     => 'mainpage',
     );
     $r->any('*')->to(
         namespace  => 'Tiger',
