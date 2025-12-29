@@ -14,6 +14,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 package Tiger;
+our $VERSION = 2.0.1;
 
 use strict;
 use warnings;

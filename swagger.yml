@@ -2,7 +2,7 @@
 openapi: 3.0.3
 info:
   title: "tiger API"
-  version: 0.0.1
+  version: 2.0.1
 paths:
   /bus/uk/citybus/locations:
     get:
