@@ -3,6 +3,8 @@
 <head>
     <title>[% title %]</title>
     <!-- meta -->
+    <meta property="og:title" content="[% title %]" />
+    <meta property="og:description" content="Real-time transport information display" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- css libs -->
