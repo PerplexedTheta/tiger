@@ -89,21 +89,23 @@ body#arrivees div#wrapper {
         div.row {
             display: flex;
             flex-direction: row;
-            flex-flow: row wrap;
+            flex-wrap: wrap;
             padding: .50rem;
 
             div.col {
                 display: flex;
+                flex: 0 0 auto;
                 flex-direction: column;
                 overflow-x: hidden;
-                overflow-y: hidden;
+                overflow-y: scroll;
                 justify-items: center;
                 justify-content: start;
 
                 span {
                     display: block;
-                    overflow-x: scroll;
+                    overflow: hidden;
                     white-space: nowrap;
+                    text-overflow: ellipsis;
 
                     &.alert {
                         color: var(--alert);
@@ -115,7 +117,7 @@ body#arrivees div#wrapper {
                 }
 
                 &.opinfo {
-                    width: calc(2.50em - .50rem);
+                    width: calc(2.0em - .50rem);
                     
                     span.oper,
                     span.headcode {
@@ -124,7 +126,7 @@ body#arrivees div#wrapper {
                 }
 
                 &.schedinfo {
-                    width: 3.50em;
+                    width: 3.25em;
                     
                     span.status,
                     span.addinfo {
@@ -140,22 +142,31 @@ body#arrivees div#wrapper {
                     }
                 }
 
-                &.destinfo {
-                    flex-grow: 1;
+                &.destinfo,
+                &.originfo {
                     width: auto;
+                    max-width: calc(100vw - 11.5em);
+                    flex-grow: 1;
+
+                    span.dest,
+                    span.orig {
+                        overflow-x: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                    }
                 }
 
                 &.platinfo,
                 &.lineinfo {
+                    width: auto;
                     flex-direction: unset;
                     justify-content: end;
-                    width: auto;
 
                     span.platform,
                     span.line {
                         display: block;
                         width: 2.0em;
-                        aspect-ratio: 1/1;
+                        height: 2.0em;
                         border: 0.15em solid var(--white);
                         border-radius: .33em;
                         text-align: center;
@@ -174,9 +185,8 @@ body#arrivees div#wrapper {
 
                 &.callsinfo {
                     display: block;
-                    margin-left: calc(10.0em - .50rem);
-                    margin-right: 2.0em;
-                    width: calc(100vw - 12.0em);
+                    margin: 0.15em 1.50em 0 calc(9.5em - .50rem);
+                    width: calc(100vw - 11.5em);
                     
                     ul.calls {
                         display: block;
@@ -205,7 +215,7 @@ body#arrivees div#wrapper {
                             animation-iteration-count: infinite;
                             animation-name: marquee;
                             animation-timing-function: linear;
-                            overflow-x: visible;
+                            overflow: visible;
 
                             &:hover {
                                 animation-play-state: paused;
@@ -280,11 +290,27 @@ body#arrivees div#wrapper {
     }
 }
 
-/* for phones */
+/* for desktop */
 @media (min-width: 576px) {
     body#departs div#wrapper,
     body#arrivees div#wrapper {
         font-size: 2.50rem;
+
+        /* main */
+        main {
+            div.row {
+                div.col {
+                    &.opinfo {
+                        width: calc(2.50em - .50rem);
+                    }
+
+                    &.callsinfo {
+                        margin: 0.15em 2.0em 0 calc(9.75em - .50rem);
+                        width: calc(100vw - 12.0em);
+                    }
+                }
+            }
+        }
     }
 }
 
