@@ -22,7 +22,7 @@ body#arrivees div#wrapper {
     overflow-x: hidden;
     overflow-y: scroll;
     color: var(--white);
-    font-size: 2.50rem;
+    font-size: 1.50rem;
     font-family: -apple-system, 'Segoe UI', system-ui, 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
     font-weight: normal;
     line-height: 1.2;
@@ -39,7 +39,7 @@ body#arrivees div#wrapper {
             display: inline-block;
             margin: 1.0em;
             padding: .25em;
-            border: 3px solid var(--white);
+            border: 0.15em solid var(--white);
             border-radius: .33em;
             text-align: center;
             align-content: center;
@@ -156,7 +156,7 @@ body#arrivees div#wrapper {
                         display: block;
                         width: 2.0em;
                         aspect-ratio: 1/1;
-                        border: 3px solid var(--white);
+                        border: 0.15em solid var(--white);
                         border-radius: .33em;
                         text-align: center;
                         align-content: center;
@@ -167,7 +167,7 @@ body#arrivees div#wrapper {
                         
                         &.alert {
                             background: var(--alert);
-                            border: 3px solid var(--alert);
+                            border: 0.15em solid var(--alert);
                         }
                     }
                 }
@@ -257,7 +257,7 @@ body#arrivees div#wrapper {
         div#clock {
             display: block;
             padding: .15em .33em;
-            border: 3px solid var(--white);
+            border: 0.15em solid var(--white);
             border-bottom: 0;
             border-top-left-radius: .33em;
             border-top-right-radius: .33em;
@@ -277,6 +277,14 @@ body#arrivees div#wrapper {
         } to {
             transform: translateX(-500%);
         }
+    }
+}
+
+/* for phones */
+@media (min-width: 576px) {
+    body#departs div#wrapper,
+    body#arrivees div#wrapper {
+        font-size: 2.50rem;
     }
 }
 
