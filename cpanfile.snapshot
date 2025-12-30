@@ -578,6 +578,15 @@ DISTRIBUTIONS
       File::Spec 0.8
       File::Temp 0.12
       Scalar::Util 0
+  Time-Piece-1.41
+    pathname: E/ES/ESAYM/Time-Piece-1.41.tar.gz
+    provides:
+      Time::Piece 1.41
+      Time::Seconds 1.41
+    requirements:
+      Exporter 5.57
+      ExtUtils::MakeMaker 0
+      Scalar::Util 0
   TimeDate-2.33
     pathname: A/AT/ATOOMIC/TimeDate-2.33.tar.gz
     provides:
