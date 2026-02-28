@@ -9,7 +9,7 @@
 [%
   INCLUDE 'include/doc-head-close.inc.tt2'
   id="arrivees"
-  class=""
+  class="$greyscale"
 %]
 
 <div id="loading">

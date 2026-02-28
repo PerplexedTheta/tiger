@@ -9,7 +9,7 @@
 [%
   INCLUDE 'include/doc-head-close.inc.tt2'
   id="departs"
-  class=""
+  class="$greyscale"
 %]
 
 <div id="loading">
@@ -44,7 +44,13 @@
     const clock = new Clock({ jquery: jQuery, hideSecs: [% IF (hide_secs) %]true[% ELSE %]false[% END %] });
     clock.init();
 
-    const ukrail = new UKRail({ mode: 'departs', api: api, jquery: jQuery });
+    const ukrail = new UKRail({
+        mode: 'departs',
+        api: api,
+        jquery: jQuery,
+        disableAnimation: [% IF (disable_animation) %]true[% ELSE %]false[% END %],
+        hideCalls: [% IF (hide_calls) %]true[% ELSE %]false[% END %],
+    });
     ukrail.init();
     setInterval(
         (() => {

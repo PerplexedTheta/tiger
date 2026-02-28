@@ -20,11 +20,27 @@ const UKRail = class {
         this.api = config.api;
         this.jQuery = config.jquery;
 
+        this.disableAnimation = config.disableAnimation || false;
+        this.hideCalls = config.hideCalls || false;
+
         if (this.mode == undefined)
             return this.throwError('no_mode', 'No mode was specified for this object.');
     };
 
     init = (() => {
+        this.api.getLocations()
+        .done(data => {
+            this.locations = data;
+            this.errors = data.errors;
+        })
+        .then(() => {
+            this.location = this.locations.find(location => {
+                return location.TIPLOC == this.api.tiploc_id;
+            });
+
+            this.setTitle(this.location.Name || this.location.TIPLOC || '');
+        });
+
         this.build()
         .then(() => {
             this.jQuery('div#loading')
@@ -40,22 +56,28 @@ const UKRail = class {
     build = (async () => {
         return this.api.getServices()
         .done(data => {
-            this.setTitle(data.Name || data.TIPLOC || '');
-
+            this.detail = data.detail;
+            this.incidentSummary = data.incidentSummary;
             this.services = data.services;
+            this.specialNotice = data.specialNotice;
+            this.errors = data.errors;
+        })
+        .then(() => {
             this.resetDOM();
 
-            if (data.detail) {
-                if (data.detail.includes('Location with TIPLOC') && data.detail.includes('not found')) {
-                    return this.throwError('no_tiploc', data.detail);
+            if (this.detail)
+                if (this.detail.includes('Location with TIPLOC') && this.detail.includes('not found')) {
+                    return this.throwError('no_tiploc', this.detail);
                 }
-            }
 
-            if (data.services == undefined || data.services.length < 1)
+            if (this.services == undefined || this.services.length < 1)
                 return this.throwError('no_data', 'There is currently no train information available.');
 
-            if (data.specialNotice != '') this.setSpecialNotice(this.jQuery('footer'), data.specialNotice);
-            if (data.incidentSummary != '') this.setIncidentSummary(this.jQuery('footer'), data.incidentSummary);
+            if (this.specialNotice != '')
+                this.setSpecialNotice(this.jQuery('footer'), this.specialNotice);
+
+            if (this.incidentSummary != '')
+                this.setIncidentSummary(this.jQuery('footer'), this.incidentSummary);
 
             this.services.forEach((service, idx) => {
                 if (this.mode == 'departs' && service.STD == '')
@@ -77,8 +99,8 @@ const UKRail = class {
                     this.setTime(dom, service.STD);
                     this.setDest(dom, service.Destinations.Front.Name);
 
-                    if (idx < 2 && service.CallingPoints)
-                        this.setCalls(dom, service.CallingPoints.Front, true);
+                    if (idx < 2 && !this.hideCalls && service.CallingPoints)
+                        this.setCalls(dom, service.CallingPoints.Front, this.disableAnimation);
                 }
 
                 if (this.mode == 'arrivees') {
@@ -163,14 +185,15 @@ const UKRail = class {
         .html(delay + ' minutes');
     });
 
-    setCalls = ((dom, callingPoints = [], animated = false) => {
+    setCalls = ((dom, callingPoints = [], disableAnimation = false) => {
         callingPoints.forEach(callingPoint => {
             dom.find('ul.calls').first()
             .append('<li>' + callingPoint.Name + '</li>');
         });
 
-        if (animated) dom.find('ul.calls').first()
-        .addClass('animated');
+        if (!disableAnimation)
+            dom.find('ul.calls').first()
+            .addClass('animated');
 
         return dom.find('ul.calls').first();
     });

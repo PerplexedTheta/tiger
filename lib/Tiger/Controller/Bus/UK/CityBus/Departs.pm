@@ -29,12 +29,12 @@ sub departs {
     return
         unless $atco_id;
 
-    my $animation = ( $controller->param('animation') ) ? 1 : undef;
+    my $greyscale = ( $controller->param('greyscale') ) ? 'greyscale' : undef;
     my $hide_secs = ( $controller->param('hide_secs') ) ? 1 : undef;
 
     ## render the template
     return $controller->render(
-        animation => $animation,
+        greyscale => $greyscale,
         hide_secs => $hide_secs,
         atco_id   => $atco_id,
         title     => 'Departures from ' . $atco_id,

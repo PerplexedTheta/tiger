@@ -24,6 +24,8 @@ const Locations = class {
         return this.api.getLocations()
         .done(data => {
             this.locations = data.features;
+        })
+        .then(() => {
             this.resetDOM();
 
             this.locations.forEach((location, idx) => {
@@ -40,8 +42,28 @@ const Locations = class {
             this.handleFilters();
         })
         .fail(error => {
-            console.error(error);
+            if (error.responseJSON.errors) {
+                let errors = error.responseJSON.errors;
+
+                return this.throwError(errors[0].error, errors[0].message);
+            }
         });
+    });
+
+    throwError = ((code, message) => {
+        let dom = this.loadDOM('');
+
+        this.setLine(dom, '', false);
+        this.setCalls(dom, [{Name: message}]);
+
+        this.commitDOM(dom);
+
+        return {
+            error: {
+                code: code,
+                message: message,
+            },
+        }
     });
 
     loadDOM = ((atco, name = '') => {

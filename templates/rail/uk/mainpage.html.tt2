@@ -11,7 +11,7 @@
 %]
 [%
   INCLUDE 'include/doc-head-close.inc.tt2'
-  id="mainpage"
+  id="ukrail"
   class=""
 %]
 

@@ -25,6 +25,19 @@ const Bus = class {
     };
 
     init = (() => {
+        this.api.getLocations()
+        .done(data => {
+            this.locations = data.features;
+            this.errors = data.errors;
+        })
+        .then(() => {
+            this.location = this.locations.find(location => {
+                return location.properties.atcoCode == this.api.atco_id;
+            });
+
+            this.setTitle(this.location.properties.commonName || '');
+        });
+
         this.build()
         .then(() => {
             this.jQuery('div#loading')
@@ -40,15 +53,16 @@ const Bus = class {
     build = (async () => {
         return this.api.getServices()
         .done(data => {
-            this.setTitle(data.name || '');
-
             this.services = data.services;
+            this.errors = data.errors;
+        })
+        .then(() => {
             this.resetDOM();
 
-            if (data.errors)
-                return this.throwError(data.errors[0].error, data.errors[0].message);
+            if (this.errors)
+                return this.throwError(this.errors[0].error, this.errors[0].message);
 
-            if (data.services == undefined || data.services.length < 1)
+            if (this.services == undefined || this.services.length < 1)
                 return this.throwError('no_data', 'There is currently no bus information available.');
 
             this.services.forEach((service, idx) => {
@@ -74,14 +88,15 @@ const Bus = class {
             this.api.getUpdates()
             .done(data => {
                 this.updates = data.updates;
-
-                if (data.errors)
+                this.errors = data.errors;
+            })
+            .then(() => {
+                if (this.errors)
                     return;
 
-                if (data.updates == undefined || data.updates.length < 1)
+                if (this.updates == undefined || this.updates.length < 1)
                     return;
 
-                let affects = [44];
                 this.updates.forEach((update, idx) => {
                     update.meta.affects.forEach((affect, idx) => {
                        affects.push(Number(affect));
@@ -95,9 +110,6 @@ const Bus = class {
                 specialNotice = specialNotice + ' For information, visit plymouthbus.co.uk/service-updates.';
 
                 this.setSpecialNotice(this.jQuery('footer'), specialNotice);
-            })
-            .fail(error => {
-                console.error(error);
             });
         })
         .fail(error => {
@@ -115,7 +127,7 @@ const Bus = class {
         let dom = this.loadDOM('');
 
         this.setLine(dom, '', false);
-        this.setCalls(dom, [{Name: message}], false);
+        this.setCalls(dom, [{Name: message}]);
 
         this.commitDOM(dom);
 
@@ -173,14 +185,11 @@ const Bus = class {
         .html(value);
     });
 
-    setCalls = ((dom, callingPoints = [], animated = false) => {
+    setCalls = ((dom, callingPoints = []) => {
         callingPoints.forEach(callingPoint => {
             dom.find('ul.calls').first()
             .append('<li>' + callingPoint.Name + '</li>');
         });
-
-        if (animated) dom.find('ul.calls').first()
-        .addClass('animated');
 
         return dom.find('ul.calls').first();
     });

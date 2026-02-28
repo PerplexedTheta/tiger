@@ -29,13 +29,11 @@ sub arrivees {
     return
         unless $tiploc_id;
 
-    my $animation = ( $controller->param('animation') ) ? 1 : undef;
-    my $hide_secs = ( $controller->param('hide_secs') ) ? 1 : undef;
+    my $greyscale = ( $controller->param('greyscale') ) ? 'greyscale' : undef;
 
     ## render the template
     return $controller->render(
-        animation => $animation,
-        hide_secs => $hide_secs,
+        greyscale => $greyscale,
         tiploc_id => $tiploc_id,
         title     => 'Arrivals at ' . $tiploc_id,
         template  => 'rail/uk/arrivees',

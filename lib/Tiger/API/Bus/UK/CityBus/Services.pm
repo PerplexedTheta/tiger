@@ -159,7 +159,7 @@ sub _process_timetable {
                 std         =>
                     _process_std( $_->at('div.single-visit__arrival-time div.single-visit__arrival-time__cell')->text ),
                 etd => _process_etd(
-                    _trim( $_->at('div.real-time-animation') ),
+                    $_->at('div.real-time-animation'),
                     _trim( $_->at('div.single-visit__arrival-time div.single-visit__arrival-time__cell')->text )
                 ),
             };
@@ -249,7 +249,7 @@ sub _process_etd {
     return $payload
         unless $time;
 
-    if ( index( $time, ' min' ) != -1 || index( $time, 'Due' ) != -1 ) {
+    if ( index( $time, 'min' ) != -1 || index( $time, 'Due' ) != -1 ) {
         $payload->{due} = $time;
     }
 
