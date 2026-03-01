@@ -18,6 +18,7 @@ const Locations = class {
     constructor(config) {
         this.api = config.api;
         this.jQuery = config.jquery;
+        this.postcode = config.postcode;
     }
 
     init = async () => {
@@ -101,13 +102,6 @@ const Locations = class {
     };
 
     handleSearchArea = () => {
-        this.jQuery('input[name="search-lat-input"]')
-            .first()
-            .removeAttr("disabled");
-        this.jQuery('input[name="search-long-input"]')
-            .first()
-            .removeAttr("disabled");
-
         let lat = "" + jQuery('input[name="search-lat-input"]').first().val();
         let long = "" + jQuery('input[name="search-long-input"]').first().val();
         let location = lat + "," + long;
@@ -116,47 +110,45 @@ const Locations = class {
             window.location.pathname + "?location=" + location,
         );
 
-        this.jQuery('input[name="search-lat-input"]')
+        this.jQuery('input[name="search-postcode-input"]')
+            .first()
+            .removeAttr("disabled");
+
+        this.jQuery('input[name="search-postcode-input"]')
             .first()
             .on("change keyup paste", () => {
-                lat =
-                    "" + jQuery('input[name="search-lat-input"]').first().val();
-                long =
-                    "" +
-                    jQuery('input[name="search-long-input"]').first().val();
-                location = lat + "," + long;
-                this.commitHistory(
-                    {
-                        page_id:
-                            "Tiger::Controller::Bus::UK::WoE::Mainpage#mainpage",
-                    },
-                    window.location.pathname + "?location=" + location,
-                );
+                let postcode = jQuery('input[name="search-postcode-input"]')
+                    .first()
+                    .val();
 
-                this.api.location = location;
-                this.build();
-            });
+                this.postcode
+                    .getPostcode(postcode)
+                    .done((data) => {
+                        lat = data.result.latitude;
+                        long = data.result.longitude;
+                        location = lat + "," + long;
 
-        this.jQuery('input[name="search-long-input"]')
-            .first()
-            .on("change keyup paste", () => {
-                lat =
-                    "" + jQuery('input[name="search-lat-input"]').first().val();
-                long =
-                    "" +
-                    jQuery('input[name="search-long-input"]').first().val();
-                location = lat + "," + long;
-                this.commitHistory(
-                    {
-                        page_id:
-                            "Tiger::Controller::Bus::UK::WoE::Mainpage#mainpage",
-                    },
-                    window.location.pathname + "?location=" + location,
-                );
+                        jQuery('input[name="search-lat-input"]')
+                            .first()
+                            .val(lat);
+                        jQuery('input[name="search-long-input"]')
+                            .first()
+                            .val(long);
+                    })
+                    .then(() => {
+                        this.commitHistory(
+                            {
+                                page_id:
+                                    "Tiger::Controller::Bus::UK::WoE::Mainpage#mainpage",
+                            },
+                            window.location.pathname + "?location=" + location,
+                        );
 
-                this.api.location = location;
-                this.build();
-                this.setURLParams(this.api.location);
+                        this.api.location = location;
+                    })
+                    .then(() => {
+                        this.build();
+                    });
             });
 
         return;

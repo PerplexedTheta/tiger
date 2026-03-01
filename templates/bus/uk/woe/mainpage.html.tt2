@@ -29,17 +29,11 @@
 <main class="flex-shrink-0 pt-3">
     <div class="container-fluid">
         <h1 class="text-center fw-bold">Select an option</h1>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span id="search-lat-label" class="input-group-text">Set lattitude</span>
-            </div>
-            <input name="search-lat-input" type="text" class="form-control" aria-label="Set lattitude" aria-describedby="search-lat-label" value="[% lat %]" disabled="disabled">
-        </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span id="search-long-label" class="input-group-text">Set longitude</span>
+                <span id="search-postcode-label" class="input-group-text">Search postcode:</span>
             </div>
-            <input name="search-long-input" type="text" class="form-control" aria-label="Set longitude" aria-describedby="search-long-label" value="[% long %]" disabled="disabled">
+            <input name="search-postcode-input" type="text" class="form-control" aria-label="Set lattitude" aria-describedby="search-postcode-label" disabled="disabled">
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -47,6 +41,8 @@
             </div>
             <input name="filter-input" type="text" class="form-control" aria-label="Filter by" aria-describedby="filter-label" disabled="disabled">
         </div>
+        <input type="hidden" name="search-lat-input" value="[% lat %]" />
+        <input type="hidden" name="search-long-input" value="[% long %]" />
         <ul class="list-group text-center"></ul>
     </div>
 </main>
@@ -64,15 +60,19 @@
 <script type="module">
     import API from '/include/js/bus/uk/woe/woe-api.mjs';
     import Clock from '/include/js/clock.mjs';
+    import Postcode from '/include/js/postcode.mjs';
     import Locations from '/include/js/bus/uk/woe/locations.mjs';
 
     const api = new API({ jquery: jQuery });
     api.init();
 
+    const postcode = new Postcode({ jquery: jQuery });
+    postcode.init();
+
     const clock = new Clock({ jquery: jQuery });
     clock.init();
 
-    const locations = new Locations({ api: api, jquery: jQuery });
+    const locations = new Locations({ api: api, postcode: postcode, jquery: jQuery });
     locations.init();
 </script>
 [% INCLUDE 'include/doc-body-close.inc.tt2' %]

@@ -14,37 +14,20 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-const API = class {
+const Postcode = class {
     constructor(config) {
         this.jQuery = config.jquery;
-        this.locations = undefined;
-
-        this.location = config.location
-            ? config.location
-            : "51.4515621,-2.6050402";
     }
 
     init = () => {
         return;
     };
 
-    getLocations = () => {
+    getPostcode = (postal_code) => {
         return this.jQuery.get(
-            "/api/v1/bus/uk/woe/locations?location=" + this.location,
+            "https://api.postcodes.io/postcodes/" + postal_code,
         );
-    };
-
-    getRoute = (route_id) => {
-        return this.jQuery.get("/api/v1/bus/uk/woe/routes/" + route_id);
-    };
-
-    getServices = (stop_id) => {
-        return this.jQuery.get("/api/v1/bus/uk/woe/services/" + stop_id);
-    };
-
-    getLocation = () => {
-        return this.location;
     };
 };
 
-export default API;
+export default Postcode;
