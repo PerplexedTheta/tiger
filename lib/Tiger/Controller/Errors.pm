@@ -21,34 +21,46 @@ use warnings;
 use Modern::Perl;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
 
-our $error_map = {
-    forbidden => 'Forbidden',
-    not_found => 'Not Found',
+our $errorMap = {
+    forbidden           => 'Forbidden',
+    notFound            => 'Not Found',
+    internalServerError => 'Internal Server Error',
 };
 
 sub forbidden {
     my ($controller) = @_ or return;
-    my ($app)        = $controller->app;
 
     ## render the template
     return $controller->render(
         status   => '403',
-        error    => $error_map->{forbidden},
+        error    => $errorMap->{forbidden},
         message  => 'This document or endpoint is not consumable by the public. Please try again.',
         template => 'errors',
         handler  => 'tt2',
     );
 }
 
-sub not_found {
+sub notFound {
     my ($controller) = @_ or return;
-    my ($app)        = $controller->app;
 
     ## render the template
     return $controller->render(
         status   => '404',
-        error    => $error_map->{not_found},
+        error    => $errorMap->{notFound},
         message  => 'This document or endpoint does not exist. Please try again.',
+        template => 'errors',
+        handler  => 'tt2',
+    );
+}
+
+sub internalServerError {
+    my ($controller) = @_ or return;
+
+    ## render the template
+    return $controller->render(
+        status   => '500',
+        error    => $errorMap->{internalServerError},
+        message  => 'This document or endpoint has caused an unhandled exception on the server. Please try again.',
         template => 'errors',
         handler  => 'tt2',
     );

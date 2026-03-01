@@ -32,12 +32,12 @@ sub get {
     my ($controller) = $app->openapi->valid_input or return;
     my $json         = $controller->req->json;
 
-    my $atco_id = $controller->param('atco_id');
+    my $atcoId = $controller->param('atco_id');
 
     my $config  = Tiger::Env::Config->new;
     my $baseurl = $config->{bus}->{citybus}->{api}->{upstream_api_url};
 
-    my $request = HTTP::Request->new( 'GET', $baseurl . '/stops/' . $atco_id );
+    my $request = HTTP::Request->new( 'GET', $baseurl . '/stops/' . $atcoId );
     my $ua      = LWP::UserAgent->new;
 
     $request->header( 'User-Agent' => 'perl/"$^V' );
@@ -58,7 +58,7 @@ sub get {
                 }
             ],
         },
-    ) unless $controller->param('atco_id') and $response->{_rc} == 200;
+    ) unless $atcoId and $response->{_rc} == 200;
 
     my ( $name, $tablet ) = _process_metadata( $response->{_content} );
 
@@ -69,7 +69,7 @@ sub get {
 
     return $controller->render(
         openapi => {
-            id       => $atco_id,
+            id       => $atcoId,
             name     => $name,
             services => $services,
         }
@@ -81,12 +81,12 @@ sub updates {
     my ($controller) = $app->openapi->valid_input or return;
     my $json         = $controller->req->json;
 
-    my $atco_id = $controller->param('atco_id');
+    my $atcoId = $controller->param('atco_id');
 
     my $config  = Tiger::Env::Config->new;
     my $baseurl = $config->{bus}->{citybus}->{api}->{upstream_api_url};
 
-    my $request = HTTP::Request->new( 'GET', $baseurl . '/stops/' . $atco_id . '/updates' );
+    my $request = HTTP::Request->new( 'GET', $baseurl . '/stops/' . $atcoId . '/updates' );
     my $ua      = LWP::UserAgent->new;
 
     $request->header( 'User-Agent' => 'perl/"$^V' );
@@ -107,13 +107,13 @@ sub updates {
                 }
             ],
         },
-    ) unless $controller->param('atco_id') and $response->{_rc} == 200;
+    ) unless $atcoId and $response->{_rc} == 200;
 
     my $updates = _process_updates( $response->{_content} );
 
     return $controller->render(
         openapi => {
-            id      => $atco_id,
+            id      => $atcoId,
             updates => $updates,
         }
     );

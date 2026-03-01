@@ -26,8 +26,8 @@ sub new {
 
     $self = {%ENV}
         or return;
-    bless( $self, $class );
 
+    bless( $self, $class );
     return $self;
 }
 

@@ -25,25 +25,23 @@ sub departs {
     my ($controller) = @_ or return;
     my ($app)        = $controller->app;
 
-    my $tiploc_id = $controller->param('tiploc_id');
-    return
-        unless $tiploc_id;
+    my $tiplocId = $controller->param('tiploc_id') or return;
 
-    my $disable_animation = ( $controller->param('disable_animation') ) ? 1 : undef;
-    my $greyscale         = ( $controller->param('greyscale') ) ? 'greyscale' : undef;
-    my $hide_calls        = ( $controller->param('hide_calls') ) ? 1 : undef;
-    my $hide_secs         = ( $controller->param('hide_secs') ) ? 1 : undef;
+    my $disableAnimation = ( $controller->param('disable_animation') ) ? 1           : undef;
+    my $greyscale        = ( $controller->param('greyscale') )         ? 'greyscale' : undef;
+    my $hideCalls        = ( $controller->param('hide_calls') )        ? 1           : undef;
+    my $hideSecs         = ( $controller->param('hide_secs') )         ? 1           : undef;
 
     ## render the template
     return $controller->render(
-        disable_animation  => $disable_animation,
-        greyscale          => $greyscale,
-        hide_calls         => $hide_calls,
-        hide_secs          => $hide_secs,
-        tiploc_id          => $tiploc_id,
-        title              => 'Departures from ' . $tiploc_id,
-        template           => 'rail/uk/departs',
-        handler            => 'tt2',
+        disable_animation => $disableAnimation,
+        greyscale         => $greyscale,
+        hide_calls        => $hideCalls,
+        hide_secs         => $hideSecs,
+        tiploc_id         => $tiplocId,
+        title             => 'Departures from ' . $tiplocId,
+        template          => 'rail/uk/departs',
+        handler           => 'tt2',
     );
 }
 

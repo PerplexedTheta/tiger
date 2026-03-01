@@ -25,17 +25,15 @@ sub arrivees {
     my ($controller) = @_ or return;
     my ($app)        = $controller->app;
 
-    my $tiploc_id = $controller->param('tiploc_id');
-    return
-        unless $tiploc_id;
+    my $tiplocId = $controller->param('tiploc_id') or return;
 
     my $greyscale = ( $controller->param('greyscale') ) ? 'greyscale' : undef;
 
     ## render the template
     return $controller->render(
         greyscale => $greyscale,
-        tiploc_id => $tiploc_id,
-        title     => 'Arrivals at ' . $tiploc_id,
+        tiploc_id => $tiplocId,
+        title     => 'Arrivals at ' . $tiplocId,
         template  => 'rail/uk/arrivees',
         handler   => 'tt2',
     );

@@ -30,6 +30,8 @@ sub get {
     my ($controller) = $app->openapi->valid_input or return;
     my $json         = $controller->req->json;
 
+    my $tiplocId = $controller->param('tiploc_id');
+
     return $controller->render(
         status  => 404,
         openapi => {
@@ -40,14 +42,12 @@ sub get {
                 }
             ],
         },
-    ) unless $controller->param('tiploc_id');
-
-    my $tiploc_id = $controller->param('tiploc_id');
+    ) unless $tiplocId;
 
     my $config  = Tiger::Env::Config->new;
     my $baseurl = $config->{rail}->{api}->{upstream_api_url};
 
-    my $request = HTTP::Request->new( 'GET', $baseurl . '/services/' . $tiploc_id );
+    my $request = HTTP::Request->new( 'GET', $baseurl . '/services/' . $tiplocId );
     my $ua      = LWP::UserAgent->new;
 
     $request->header( 'User-Agent'                                  => 'perl/"$^V' );

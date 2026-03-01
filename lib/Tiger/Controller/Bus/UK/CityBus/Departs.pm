@@ -25,19 +25,17 @@ sub departs {
     my ($controller) = @_ or return;
     my ($app)        = $controller->app;
 
-    my $atco_id = $controller->param('atco_id');
-    return
-        unless $atco_id;
+    my $atcoId = $controller->param('atco_id') or return;
 
     my $greyscale = ( $controller->param('greyscale') ) ? 'greyscale' : undef;
-    my $hide_secs = ( $controller->param('hide_secs') ) ? 1 : undef;
+    my $hideSecs  = ( $controller->param('hide_secs') ) ? 1           : undef;
 
     ## render the template
     return $controller->render(
         greyscale => $greyscale,
-        hide_secs => $hide_secs,
-        atco_id   => $atco_id,
-        title     => 'Departures from ' . $atco_id,
+        hide_secs => $hideSecs,
+        atco_id   => $atcoId,
+        title     => 'Departures from ' . $atcoId,
         template  => 'bus/uk/citybus/departs',
         handler   => 'tt2',
     );

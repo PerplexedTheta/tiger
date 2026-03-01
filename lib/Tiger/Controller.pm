@@ -103,7 +103,7 @@ sub routes {
     $r->any('*')->to(
         namespace  => 'Tiger',
         controller => 'Controller::Errors',
-        action     => 'not_found',
+        action     => 'notFound',
     );
 
     return $r;
