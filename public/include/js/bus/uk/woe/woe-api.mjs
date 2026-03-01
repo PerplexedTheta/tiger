@@ -21,7 +21,7 @@ const API = class {
 
         this.location = config.location
             ? config.location
-            : "51.4515621%2C-2.6050402";
+            : "51.4515621,-2.6050402";
     }
 
     init = () => {

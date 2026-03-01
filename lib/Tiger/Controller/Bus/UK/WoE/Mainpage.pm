@@ -25,9 +25,14 @@ sub mainpage {
     my ($controller) = @_ or return;
     my ($app)        = $controller->app;
 
+    my $location = $controller->param('location') || '51.4515621,-2.6050402';
+    my ( $lat, $long ) = split /,/, $location;
+
     ## render the template
     return $controller->render(
         title    => 'West of England Bus Times',
+        lat      => $lat,
+        long     => $long,
         template => 'bus/uk/woe/mainpage',
         handler  => 'tt2',
     );

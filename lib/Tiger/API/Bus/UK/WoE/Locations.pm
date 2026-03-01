@@ -29,7 +29,7 @@ sub list {
     my ($app)        = @_;
     my ($controller) = $app->openapi->valid_input or return;
 
-    my $location = $controller->param('location') || '51.4515621%2C-2.6050402';
+    my $location = $controller->param('location') || '51.4515621,-2.6050402';
 
     my $config  = Tiger::Env::Config->new;
     my $baseurl = $config->{bus}->{woe}->{api}->{upstream_api_url}->{v3};

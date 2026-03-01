@@ -33,13 +33,13 @@
             <div class="input-group-prepend">
                 <span id="search-lat-label" class="input-group-text">Set lattitude</span>
             </div>
-            <input name="search-lat-input" type="text" class="form-control" aria-label="Set lattitude" aria-describedby="search-lat-label" value="51.4515621" disabled="disabled">
+            <input name="search-lat-input" type="text" class="form-control" aria-label="Set lattitude" aria-describedby="search-lat-label" value="[% lat %]" disabled="disabled">
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span id="search-long-label" class="input-group-text">Set longitude</span>
             </div>
-            <input name="search-long-input" type="text" class="form-control" aria-label="Set longitude" aria-describedby="search-long-label" value="-2.6050402" disabled="disabled">
+            <input name="search-long-input" type="text" class="form-control" aria-label="Set longitude" aria-describedby="search-long-label" value="[% long %]" disabled="disabled">
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
