@@ -81,10 +81,10 @@ DISTRIBUTIONS
       Text::ParseWords 3.24
       strict 0
       warnings 0
-  ExtUtils-InstallPaths-0.014
-    pathname: L/LE/LEONT/ExtUtils-InstallPaths-0.014.tar.gz
+  ExtUtils-InstallPaths-0.015
+    pathname: L/LE/LEONT/ExtUtils-InstallPaths-0.015.tar.gz
     provides:
-      ExtUtils::InstallPaths 0.014
+      ExtUtils::InstallPaths 0.015
     requirements:
       Carp 0
       ExtUtils::Config 0.009
@@ -161,19 +161,19 @@ DISTRIBUTIONS
       Time::Zone 0
       perl 5.006002
       strict 0
-  HTTP-Message-7.00
-    pathname: O/OA/OALDERS/HTTP-Message-7.00.tar.gz
+  HTTP-Message-7.01
+    pathname: O/OA/OALDERS/HTTP-Message-7.01.tar.gz
     provides:
-      HTTP::Config 7.00
-      HTTP::Headers 7.00
-      HTTP::Headers::Auth 7.00
-      HTTP::Headers::ETag 7.00
-      HTTP::Headers::Util 7.00
-      HTTP::Message 7.00
-      HTTP::Request 7.00
-      HTTP::Request::Common 7.00
-      HTTP::Response 7.00
-      HTTP::Status 7.00
+      HTTP::Config 7.01
+      HTTP::Headers 7.01
+      HTTP::Headers::Auth 7.01
+      HTTP::Headers::ETag 7.01
+      HTTP::Headers::Util 7.01
+      HTTP::Message 7.01
+      HTTP::Request 7.01
+      HTTP::Request::Common 7.01
+      HTTP::Response 7.01
+      HTTP::Status 7.01
     requirements:
       Carp 0
       Clone 0.46
@@ -217,18 +217,18 @@ DISTRIBUTIONS
       Exporter 5.57
       ExtUtils::MakeMaker 0
       perl 5.008
-  IO-Socket-SSL-2.095
-    pathname: S/SU/SULLR/IO-Socket-SSL-2.095.tar.gz
+  IO-Socket-SSL-2.098
+    pathname: S/SU/SULLR/IO-Socket-SSL-2.098.tar.gz
     provides:
-      IO::Socket::SSL 2.095
+      IO::Socket::SSL 2.098
       IO::Socket::SSL::Intercept 2.056
-      IO::Socket::SSL::OCSP_Cache 2.095
-      IO::Socket::SSL::OCSP_Resolver 2.095
+      IO::Socket::SSL::OCSP_Cache 2.098
+      IO::Socket::SSL::OCSP_Resolver 2.098
       IO::Socket::SSL::PublicSuffix undef
-      IO::Socket::SSL::SSL_Context 2.095
-      IO::Socket::SSL::SSL_HANDLE 2.095
-      IO::Socket::SSL::Session_Cache 2.095
-      IO::Socket::SSL::Trace 2.095
+      IO::Socket::SSL::SSL_Context 2.098
+      IO::Socket::SSL::SSL_HANDLE 2.098
+      IO::Socket::SSL::Session_Cache 2.098
+      IO::Socket::SSL::Trace 2.098
       IO::Socket::SSL::Utils 2.015
     requirements:
       ExtUtils::MakeMaker 0
@@ -277,11 +277,11 @@ DISTRIBUTIONS
       Scalar::Util 0
       perl 5.006002
       strict 0
-  LWP-Protocol-https-6.14
-    pathname: O/OA/OALDERS/LWP-Protocol-https-6.14.tar.gz
+  LWP-Protocol-https-6.15
+    pathname: O/OA/OALDERS/LWP-Protocol-https-6.15.tar.gz
     provides:
-      LWP::Protocol::https 6.14
-      LWP::Protocol::https::Socket 6.14
+      LWP::Protocol::https 6.15
+      LWP::Protocol::https::Socket 6.15
     requirements:
       ExtUtils::MakeMaker 0
       IO::Socket::SSL 1.970
@@ -339,8 +339,8 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
-  Mojolicious-9.41
-    pathname: S/SR/SRI/Mojolicious-9.41.tar.gz
+  Mojolicious-9.42
+    pathname: S/SR/SRI/Mojolicious-9.42.tar.gz
     provides:
       Mojo undef
       Mojo::Asset undef
@@ -410,7 +410,7 @@ DISTRIBUTIONS
       Mojo::UserAgent::Transactor undef
       Mojo::Util undef
       Mojo::WebSocket undef
-      Mojolicious 9.41
+      Mojolicious 9.42
       Mojolicious::Command undef
       Mojolicious::Command::Author::cpanify undef
       Mojolicious::Command::Author::generate undef
@@ -487,13 +487,13 @@ DISTRIBUTIONS
       Template::Provider 2.94
       parent 0
       perl 5.010001
-  Net-HTTP-6.23
-    pathname: O/OA/OALDERS/Net-HTTP-6.23.tar.gz
+  Net-HTTP-6.24
+    pathname: O/OA/OALDERS/Net-HTTP-6.24.tar.gz
     provides:
-      Net::HTTP 6.23
-      Net::HTTP::Methods 6.23
-      Net::HTTP::NB 6.23
-      Net::HTTPS 6.23
+      Net::HTTP 6.24
+      Net::HTTP::Methods 6.24
+      Net::HTTP::NB 6.24
+      Net::HTTPS 6.24
     requirements:
       Carp 0
       Compress::Raw::Zlib 0
@@ -587,49 +587,50 @@ DISTRIBUTIONS
       Exporter 5.57
       ExtUtils::MakeMaker 0
       Scalar::Util 0
-  TimeDate-2.33
-    pathname: A/AT/ATOOMIC/TimeDate-2.33.tar.gz
+  TimeDate-2.34
+    pathname: A/AT/ATOOMIC/TimeDate-2.34.tar.gz
     provides:
-      Date::Format 2.24
-      Date::Format::Generic 2.24
-      Date::Language 1.10
-      Date::Language::Afar 0.99
-      Date::Language::Amharic 1.00
-      Date::Language::Austrian 1.01
-      Date::Language::Brazilian 1.01
-      Date::Language::Bulgarian 1.01
-      Date::Language::Chinese 1.00
-      Date::Language::Chinese_GB 1.01
-      Date::Language::Czech 1.01
-      Date::Language::Danish 1.01
-      Date::Language::Dutch 1.02
-      Date::Language::English 1.01
-      Date::Language::Finnish 1.01
-      Date::Language::French 1.04
-      Date::Language::Gedeo 0.99
-      Date::Language::German 1.02
-      Date::Language::Greek 1.00
-      Date::Language::Hungarian 1.01
-      Date::Language::Icelandic 1.01
-      Date::Language::Italian 1.01
-      Date::Language::Norwegian 1.01
-      Date::Language::Occitan 1.04
-      Date::Language::Oromo 0.99
-      Date::Language::Romanian 1.01
-      Date::Language::Russian 1.01
-      Date::Language::Russian_cp1251 1.01
-      Date::Language::Russian_koi8r 1.01
-      Date::Language::Sidama 0.99
-      Date::Language::Somali 0.99
-      Date::Language::Spanish 1.00
-      Date::Language::Swedish 1.01
-      Date::Language::Tigrinya 1.00
-      Date::Language::TigrinyaEritrean 1.00
-      Date::Language::TigrinyaEthiopian 1.00
-      Date::Language::Turkish 1.0
-      Date::Parse 2.33
-      Time::Zone 2.24
-      TimeDate 1.21
+      Date::Format 2.34
+      Date::Format::Generic 2.34
+      Date::Language 2.34
+      Date::Language::Afar 2.34
+      Date::Language::Amharic 2.34
+      Date::Language::Arabic 2.34
+      Date::Language::Austrian 2.34
+      Date::Language::Brazilian 2.34
+      Date::Language::Bulgarian 2.34
+      Date::Language::Chinese 2.34
+      Date::Language::Chinese_GB 2.34
+      Date::Language::Czech 2.34
+      Date::Language::Danish 2.34
+      Date::Language::Dutch 2.34
+      Date::Language::English 2.34
+      Date::Language::Finnish 2.34
+      Date::Language::French 2.34
+      Date::Language::Gedeo 2.34
+      Date::Language::German 2.34
+      Date::Language::Greek 2.34
+      Date::Language::Hungarian 2.34
+      Date::Language::Icelandic 2.34
+      Date::Language::Italian 2.34
+      Date::Language::Norwegian 2.34
+      Date::Language::Occitan 2.34
+      Date::Language::Oromo 2.34
+      Date::Language::Romanian 2.34
+      Date::Language::Russian 2.34
+      Date::Language::Russian_cp1251 2.34
+      Date::Language::Russian_koi8r 2.34
+      Date::Language::Sidama 2.34
+      Date::Language::Somali 2.34
+      Date::Language::Spanish 2.34
+      Date::Language::Swedish 2.34
+      Date::Language::Tigrinya 2.34
+      Date::Language::TigrinyaEritrean 2.34
+      Date::Language::TigrinyaEthiopian 2.34
+      Date::Language::Turkish 2.34
+      Date::Parse 2.34
+      Time::Zone 2.34
+      TimeDate 2.34
     requirements:
       ExtUtils::MakeMaker 0
   Try-Tiny-0.32
@@ -644,63 +645,66 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
-  URI-5.32
-    pathname: O/OA/OALDERS/URI-5.32.tar.gz
+  URI-5.34
+    pathname: O/OA/OALDERS/URI-5.34.tar.gz
     provides:
-      URI 5.32
-      URI::Escape 5.32
-      URI::Heuristic 5.32
-      URI::IRI 5.32
-      URI::QueryParam 5.32
-      URI::Split 5.32
-      URI::URL 5.32
-      URI::WithBase 5.32
-      URI::data 5.32
-      URI::file 5.32
-      URI::file::Base 5.32
-      URI::file::FAT 5.32
-      URI::file::Mac 5.32
-      URI::file::OS2 5.32
-      URI::file::QNX 5.32
-      URI::file::Unix 5.32
-      URI::file::Win32 5.32
-      URI::ftp 5.32
-      URI::ftpes 5.32
-      URI::ftps 5.32
-      URI::geo 5.32
-      URI::gopher 5.32
-      URI::http 5.32
-      URI::https 5.32
-      URI::icap 5.32
-      URI::icaps 5.32
-      URI::irc 5.32
-      URI::ircs 5.32
-      URI::ldap 5.32
-      URI::ldapi 5.32
-      URI::ldaps 5.32
-      URI::mailto 5.32
-      URI::mms 5.32
-      URI::news 5.32
-      URI::nntp 5.32
-      URI::nntps 5.32
-      URI::otpauth 5.32
-      URI::pop 5.32
-      URI::rlogin 5.32
-      URI::rsync 5.32
-      URI::rtsp 5.32
-      URI::rtspu 5.32
-      URI::scp 5.32
-      URI::sftp 5.32
-      URI::sip 5.32
-      URI::sips 5.32
-      URI::smb 5.32
-      URI::snews 5.32
-      URI::ssh 5.32
-      URI::telnet 5.32
-      URI::tn3270 5.32
-      URI::urn 5.32
-      URI::urn::isbn 5.32
-      URI::urn::oid 5.32
+      URI 5.34
+      URI::Escape 5.34
+      URI::Heuristic 5.34
+      URI::IRI 5.34
+      URI::QueryParam 5.34
+      URI::Split 5.34
+      URI::URL 5.34
+      URI::WithBase 5.34
+      URI::data 5.34
+      URI::file 5.34
+      URI::file::Base 5.34
+      URI::file::FAT 5.34
+      URI::file::Mac 5.34
+      URI::file::OS2 5.34
+      URI::file::QNX 5.34
+      URI::file::Unix 5.34
+      URI::file::Win32 5.34
+      URI::ftp 5.34
+      URI::ftpes 5.34
+      URI::ftps 5.34
+      URI::geo 5.34
+      URI::gopher 5.34
+      URI::http 5.34
+      URI::https 5.34
+      URI::icap 5.34
+      URI::icaps 5.34
+      URI::irc 5.34
+      URI::ircs 5.34
+      URI::ldap 5.34
+      URI::ldapi 5.34
+      URI::ldaps 5.34
+      URI::mailto 5.34
+      URI::mms 5.34
+      URI::news 5.34
+      URI::nntp 5.34
+      URI::nntps 5.34
+      URI::otpauth 5.34
+      URI::pop 5.34
+      URI::rlogin 5.34
+      URI::rsync 5.34
+      URI::rtsp 5.34
+      URI::rtspu 5.34
+      URI::scp 5.34
+      URI::sftp 5.34
+      URI::sip 5.34
+      URI::sips 5.34
+      URI::smb 5.34
+      URI::smtp 5.34
+      URI::snews 5.34
+      URI::ssh 5.34
+      URI::telnet 5.34
+      URI::tn3270 5.34
+      URI::urn 5.34
+      URI::urn::isbn 5.34
+      URI::urn::oid 5.34
+      URI::ws 5.34
+      URI::wss 5.34
     requirements:
       Carp 0
       Cwd 0
@@ -775,32 +779,32 @@ DISTRIBUTIONS
       perl 5.008001
       strict 0
       warnings 0
-  libwww-perl-6.79
-    pathname: O/OA/OALDERS/libwww-perl-6.79.tar.gz
+  libwww-perl-6.81
+    pathname: O/OA/OALDERS/libwww-perl-6.81.tar.gz
     provides:
-      LWP 6.79
-      LWP::Authen::Basic 6.79
-      LWP::Authen::Digest 6.79
-      LWP::Authen::Ntlm 6.79
-      LWP::ConnCache 6.79
-      LWP::Debug 6.79
-      LWP::Debug::TraceHTTP 6.79
-      LWP::DebugFile 6.79
-      LWP::MemberMixin 6.79
-      LWP::Protocol 6.79
-      LWP::Protocol::cpan 6.79
-      LWP::Protocol::data 6.79
-      LWP::Protocol::file 6.79
-      LWP::Protocol::ftp 6.79
-      LWP::Protocol::gopher 6.79
-      LWP::Protocol::http 6.79
-      LWP::Protocol::loopback 6.79
-      LWP::Protocol::mailto 6.79
-      LWP::Protocol::nntp 6.79
-      LWP::Protocol::nogo 6.79
-      LWP::RobotUA 6.79
-      LWP::Simple 6.79
-      LWP::UserAgent 6.79
+      LWP 6.81
+      LWP::Authen::Basic 6.81
+      LWP::Authen::Digest 6.81
+      LWP::Authen::Ntlm 6.81
+      LWP::ConnCache 6.81
+      LWP::Debug 6.81
+      LWP::Debug::TraceHTTP 6.81
+      LWP::DebugFile 6.81
+      LWP::MemberMixin 6.81
+      LWP::Protocol 6.81
+      LWP::Protocol::cpan 6.81
+      LWP::Protocol::data 6.81
+      LWP::Protocol::file 6.81
+      LWP::Protocol::ftp 6.81
+      LWP::Protocol::gopher 6.81
+      LWP::Protocol::http 6.81
+      LWP::Protocol::loopback 6.81
+      LWP::Protocol::mailto 6.81
+      LWP::Protocol::nntp 6.81
+      LWP::Protocol::nogo 6.81
+      LWP::RobotUA 6.81
+      LWP::Simple 6.81
+      LWP::UserAgent 6.81
     requirements:
       Digest::MD5 0
       Encode 2.12
@@ -814,10 +818,11 @@ DISTRIBUTIONS
       HTML::HeadParser 3.71
       HTTP::Cookies 6
       HTTP::Date 6
+      HTTP::Message 7.01
       HTTP::Negotiate 6
-      HTTP::Request 6.18
+      HTTP::Request 7.01
       HTTP::Request::Common 6.18
-      HTTP::Response 6.18
+      HTTP::Response 7.01
       HTTP::Status 6.18
       IO::Select 0
       IO::Socket 0
