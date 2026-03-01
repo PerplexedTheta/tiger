@@ -108,31 +108,55 @@ const Locations = class {
             .first()
             .removeAttr("disabled");
 
+        let lat = "" + jQuery('input[name="search-lat-input"]').first().val();
+        let long = "" + jQuery('input[name="search-long-input"]').first().val();
+        let location = lat + "," + long;
+        this.commitHistory(
+            { page_id: "Tiger::Controller::Bus::UK::WoE::Mainpage#mainpage" },
+            window.location.pathname + "?location=" + location,
+        );
+
         this.jQuery('input[name="search-lat-input"]')
             .first()
             .on("change keyup paste", () => {
-                let lat =
+                lat =
                     "" + jQuery('input[name="search-lat-input"]').first().val();
-                let long =
+                long =
                     "" +
                     jQuery('input[name="search-long-input"]').first().val();
+                location = lat + "," + long;
+                this.commitHistory(
+                    {
+                        page_id:
+                            "Tiger::Controller::Bus::UK::WoE::Mainpage#mainpage",
+                    },
+                    window.location.pathname + "?location=" + location,
+                );
 
-                this.api.location = lat + "," + long;
+                this.api.location = location;
                 this.build();
             });
 
         this.jQuery('input[name="search-long-input"]')
             .first()
             .on("change keyup paste", () => {
-                let lat = jQuery('input[name="search-lat-input"]')
-                    .first()
-                    .val();
-                let long = jQuery('input[name="search-long-input"]')
-                    .first()
-                    .val();
+                lat =
+                    "" + jQuery('input[name="search-lat-input"]').first().val();
+                long =
+                    "" +
+                    jQuery('input[name="search-long-input"]').first().val();
+                location = lat + "," + long;
+                this.commitHistory(
+                    {
+                        page_id:
+                            "Tiger::Controller::Bus::UK::WoE::Mainpage#mainpage",
+                    },
+                    window.location.pathname + "?location=" + location,
+                );
 
-                this.api.location = lat + "," + long;
+                this.api.location = location;
                 this.build();
+                this.setURLParams(this.api.location);
             });
 
         return;
@@ -165,6 +189,10 @@ const Locations = class {
             });
 
         return;
+    };
+
+    commitHistory = (state, url) => {
+        return history.pushState(state, undefined, url);
     };
 
     setDeparts = (dom, id) => {

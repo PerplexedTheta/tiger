@@ -63,7 +63,7 @@ const Bus = class {
                         "There is currently no bus information available.",
                     );
 
-                this.setTitle(this.stop.name + ' (' + this.stop.bearing + ')');
+                this.setTitle(this.stop.name + " (" + this.stop.bearing + ")");
 
                 this.services.forEach((service, idx) => {
                     // not implemented

@@ -18,8 +18,4 @@ $ENV{'MOJO_ADDR'}  ||= '[::1]';
 $ENV{'MOJO_PORT'}  ||= 3000;
 
 ## run app
-$c->start_app(
-    'Tiger',
-    'daemon',
-    '-l', $ENV{'MOJO_PROTO'} . '://' . $ENV{'MOJO_ADDR'} . ':' . $ENV{'MOJO_PORT'},
-);
+$c->start_app( 'Tiger', 'daemon', '-l', $ENV{'MOJO_PROTO'} . '://' . $ENV{'MOJO_ADDR'} . ':' . $ENV{'MOJO_PORT'}, );
