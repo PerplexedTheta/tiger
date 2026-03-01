@@ -18,91 +18,100 @@ const Locations = class {
     constructor(config) {
         this.api = config.api;
         this.jQuery = config.jquery;
+    }
+
+    init = async () => {
+        return this.api
+            .getLocations()
+            .done((data) => {
+                this.locations = data;
+                this.resetDOM();
+
+                this.locations.forEach((location, idx) => {
+                    let tiploc = location.TIPLOC;
+                    let name = location.Name;
+                    let dom = this.loadDOM(tiploc, name);
+
+                    this.setStation(dom, name);
+                    this.setArrivees(dom, tiploc);
+                    this.setDeparts(dom, tiploc);
+
+                    this.commitDOM(dom);
+                });
+
+                this.handleFilters();
+            })
+            .fail((error) => {
+                console.error(error);
+            });
     };
 
-    init = (async () => {
-        return this.api.getLocations()
-        .done(data => {
-            this.locations = data;
-            this.resetDOM();
-
-            this.locations.forEach((location, idx) => {
-                let tiploc = location.TIPLOC;
-                let name = location.Name;
-                let dom = this.loadDOM(tiploc, name);
-
-                this.setStation(dom, name);
-                this.setArrivees(dom, tiploc);
-                this.setDeparts(dom, tiploc);
-
-                this.commitDOM(dom);
-            });
-
-            this.handleFilters();
-        })
-        .fail(error => {
-            console.error(error);
-        });
-    });
-
-    loadDOM = ((tiploc, name = '') => {
+    loadDOM = (tiploc, name = "") => {
         // initialise object
-        let dom = this.jQuery('<li>');
-        dom.addClass('list-group-item');
-        dom.attr('data-tiploc', tiploc);
-        dom.attr('data-name', name.toUpperCase());
+        let dom = this.jQuery("<li>");
+        dom.addClass("list-group-item");
+        dom.attr("data-tiploc", tiploc);
+        dom.attr("data-name", name.toUpperCase());
 
-        dom.html('<strong>#STATION<\/strong> | <a href=\"#DEPARTS\">Departures<\/a> | <a href=\"#ARRIVEES\">Arrivals<\/a>');
+        dom.html(
+            '<strong>#STATION<\/strong> | <a href=\"#DEPARTS\">Departures<\/a> | <a href=\"#ARRIVEES\">Arrivals<\/a>',
+        );
 
         return dom;
-    });
+    };
 
-    commitDOM = (dom => {
-        return this.jQuery('ul.list-group').first()
-        .append(dom);
-    });
+    commitDOM = (dom) => {
+        return this.jQuery("ul.list-group").first().append(dom);
+    };
 
-    resetDOM = (() => {
-        return this.jQuery('ul.list-group')
-        .text('');
-    });
+    resetDOM = () => {
+        return this.jQuery("ul.list-group").text("");
+    };
 
-    handleFilters = (() => {
-        this.jQuery('input[name="filter-input"]').first()
-        .removeAttr('disabled');
+    handleFilters = () => {
+        this.jQuery('input[name="filter-input"]')
+            .first()
+            .removeAttr("disabled");
 
-        return this.jQuery('input[name="filter-input"]').first()
-        .on('keyup', () => {
-            const value = this.jQuery('input[name="filter-input"]').first()
-            .val()
-            .toUpperCase();
+        return this.jQuery('input[name="filter-input"]')
+            .first()
+            .on("keyup", () => {
+                const value = this.jQuery('input[name="filter-input"]')
+                    .first()
+                    .val()
+                    .toUpperCase();
 
-            this.jQuery('li.list-group-item').each((idx, element) => {
-                if (value == '') {
-                    this.jQuery(element).show();
-                } else if (this.jQuery(element).is("[data-name*='" + value + "']")) {
-                    this.jQuery(element).show();
-                } else {
-                    this.jQuery(element).hide();
-                }
+                this.jQuery("li.list-group-item").each((idx, element) => {
+                    if (value == "") {
+                        this.jQuery(element).show();
+                    } else if (
+                        this.jQuery(element).is("[data-name*='" + value + "']")
+                    ) {
+                        this.jQuery(element).show();
+                    } else {
+                        this.jQuery(element).hide();
+                    }
+                });
             });
-        });
-    });
+    };
 
-    setArrivees = ((dom, tiploc) => {
-        return dom.find('a[href="#ARRIVEES"]').first()
-        .attr('href', '/rail/uk/' + tiploc + '/arrivees');
-    });
+    setArrivees = (dom, tiploc) => {
+        return dom
+            .find('a[href="#ARRIVEES"]')
+            .first()
+            .attr("href", "/rail/uk/" + tiploc + "/arrivees");
+    };
 
-    setDeparts = ((dom, tiploc) => {
-        return dom.find('a[href="#DEPARTS"]').first()
-        .attr('href', '/rail/uk/' + tiploc + '/departs');
-    });
+    setDeparts = (dom, tiploc) => {
+        return dom
+            .find('a[href="#DEPARTS"]')
+            .first()
+            .attr("href", "/rail/uk/" + tiploc + "/departs");
+    };
 
-    setStation = ((dom, name = '') => {
-        return dom.find('strong').first()
-        .text(name);
-    });
+    setStation = (dom, name = "") => {
+        return dom.find("strong").first().text(name);
+    };
 };
 
 export default Locations;

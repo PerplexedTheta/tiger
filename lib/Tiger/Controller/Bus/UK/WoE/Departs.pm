@@ -13,7 +13,7 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
-package Tiger::Controller::Bus::UK::CityBus::Departs;
+package Tiger::Controller::Bus::UK::WoE::Departs;
 
 use strict;
 use warnings;
@@ -25,7 +25,7 @@ sub departs {
     my ($controller) = @_ or return;
     my ($app)        = $controller->app;
 
-    my $atcoId = $controller->param('atco_id') or return;
+    my $stopId = $controller->param('stop_id') or return;
 
     my $greyscale = ( $controller->param('greyscale') ) ? 'greyscale' : undef;
     my $hideSecs  = ( $controller->param('hide_secs') ) ? 1           : undef;
@@ -34,9 +34,9 @@ sub departs {
     return $controller->render(
         greyscale => $greyscale,
         hide_secs => $hideSecs,
-        atco_id   => $atcoId,
-        title     => 'Departures from ' . $atcoId,
-        template  => 'bus/uk/citybus/departs',
+        stop_id   => $stopId,
+        title     => 'Departures from ' . $stopId,
+        template  => 'bus/uk/woe/departs',
         handler   => 'tt2',
     );
 }

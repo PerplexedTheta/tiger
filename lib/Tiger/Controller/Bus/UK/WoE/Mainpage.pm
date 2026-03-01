@@ -13,7 +13,7 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
-package Tiger::Controller::Bus::UK::CityBus::Mainpage;
+package Tiger::Controller::Bus::UK::WoE::Mainpage;
 
 use strict;
 use warnings;
@@ -27,8 +27,8 @@ sub mainpage {
 
     ## render the template
     return $controller->render(
-        title    => 'Plymouth CityBus Times',
-        template => 'bus/uk/citybus/mainpage',
+        title    => 'West of England Bus Times',
+        template => 'bus/uk/woe/mainpage',
         handler  => 'tt2',
     );
 }

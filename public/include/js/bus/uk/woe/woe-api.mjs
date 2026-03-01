@@ -18,28 +18,37 @@ const API = class {
     constructor(config) {
         this.jQuery = config.jquery;
         this.locations = undefined;
-        this.atco_id = config.atco_id;
+
+        this.location = config.location
+            ? config.location
+            : "51.4515621%2C-2.6050402";
+    }
+
+    init = () => {
+        return;
     };
 
-    init = (() => {
-        return;
-    });
+    getLocations = () => {
+        return this.jQuery.get(
+            "/api/v1/bus/uk/woe/locations?location=" + this.location,
+        );
+    };
 
-    getLocations = (() => {
-        return this.jQuery.get('/api/v1/bus/uk/citybus/locations');
-    });
+    getRoute = (route_id) => {
+        return this.jQuery.get("/api/v1/bus/uk/woe/routes/" + route_id);
+    };
 
-    getServices = (() => {
-        return this.jQuery.get('/api/v1/bus/uk/citybus/services/' + this.atco_id);
-    });
+    getServices = (stop_id) => {
+        return this.jQuery.get("/api/v1/bus/uk/woe/services/" + stop_id);
+    };
 
-    getUpdates = (() => {
-        return this.jQuery.get('/api/v1/bus/uk/citybus/services/' + this.atco_id + '/updates');
-    });
+    getStop = () => {
+        return this.stop_id;
+    };
 
-    getStop = (() => {
-        return this.atco_id;
-    });
+    getRoute = () => {
+        return this.route_id;
+    };
 };
 
 export default API;

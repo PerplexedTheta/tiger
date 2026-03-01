@@ -29,6 +29,18 @@
 <main class="flex-shrink-0 pt-3">
     <div class="container-fluid">
         <h1 class="text-center fw-bold">Select an option</h1>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span id="search-lat-label" class="input-group-text">Set lattitude</span>
+            </div>
+            <input name="search-lat-input" type="text" class="form-control" aria-label="Set lattitude" aria-describedby="search-lat-label" value="51.4515621" disabled="disabled">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span id="search-long-label" class="input-group-text">Set longitude</span>
+            </div>
+            <input name="search-long-input" type="text" class="form-control" aria-label="Set longitude" aria-describedby="search-long-label" value="-2.6050402" disabled="disabled">
+        </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span id="filter-label" class="input-group-text">Filter by</span>
@@ -50,9 +62,9 @@
 
 [% INCLUDE 'include/doc-body-scripts.inc.tt2' %]
 <script type="module">
-    import API from '/include/js/bus/uk/citybus/citybus-api.mjs';
+    import API from '/include/js/bus/uk/woe/woe-api.mjs';
     import Clock from '/include/js/clock.mjs';
-    import Locations from '/include/js/bus/uk/citybus/locations.mjs';
+    import Locations from '/include/js/bus/uk/woe/locations.mjs';
 
     const api = new API({ jquery: jQuery });
     api.init();

@@ -19,23 +19,23 @@ const API = class {
         this.jQuery = config.jquery;
         this.locations = undefined;
         this.tiploc_id = config.tiploc_id;
+    }
+
+    init = () => {
+        return;
     };
 
-    init = (() => {
-        return;
-    });
+    getLocations = () => {
+        return this.jQuery.get("/api/v1/rail/uk/locations");
+    };
 
-    getLocations = (() => {
-        return this.jQuery.get('/api/v1/rail/uk/locations');
-    });
+    getServices = () => {
+        return this.jQuery.get("/api/v1/rail/uk/services/" + this.tiploc_id);
+    };
 
-    getServices = (() => {
-        return this.jQuery.get('/api/v1/rail/uk/services/' + this.tiploc_id);
-    });
-
-    getTiploc = (() => {
+    getTiploc = () => {
         return this.tiploc_id;
-    });
+    };
 };
 
 export default API;

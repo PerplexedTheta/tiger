@@ -60,19 +60,19 @@ sub routes {
         controller => 'Controller::Errors',
         action     => 'forbidden',
     );
-    $r->get('/bus/uk/plymcitybus')->to(
+    $r->get('/bus/uk/woe')->to(
         namespace  => 'Tiger',
-        controller => 'Controller::Bus::UK::CityBus::Mainpage',
+        controller => 'Controller::Bus::UK::WoE::Mainpage',
         action     => 'mainpage',
     );
-    $r->get('/bus/uk/plymcitybus/:atco_id/arrivees')->to(
+    $r->get('/bus/uk/woe/:stop_id/arrivees')->to(
         namespace  => 'Tiger',
-        controller => 'Controller::Bus::UK::CityBus::Arrivees',
+        controller => 'Controller::Bus::UK::WoE::Arrivees',
         action     => 'arrivees',
     );
-    $r->get('/bus/uk/plymcitybus/:atco_id/departs')->to(
+    $r->get('/bus/uk/woe/:stop_id/departs')->to(
         namespace  => 'Tiger',
-        controller => 'Controller::Bus::UK::CityBus::Departs',
+        controller => 'Controller::Bus::UK::WoE::Departs',
         action     => 'departs',
     );
     $r->any('/rail')->to(

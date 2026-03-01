@@ -19,21 +19,17 @@ const Clock = class {
         this.date = undefined;
         this.jQuery = config.jquery;
         this.hideSecs = config.hideSecs;
+    }
+
+    init = () => {
+        return setInterval(() => {
+            return this.update();
+        }, 83);
     };
 
-    init = (() => {
-        return setInterval(
-            (() => {
-                return this.update();
-            }),
-            83
-        );
-    });
-
-    update = (async () => {
-        this.date = new Date;
-        this.dom = this.jQuery('<div>')
-        .attr('id', 'clock');
+    update = async () => {
+        this.date = new Date();
+        this.dom = this.jQuery("<div>").attr("id", "clock");
 
         let HH = this.format(this.date.getHours());
         let MM = this.format(this.date.getMinutes());
@@ -41,22 +37,21 @@ const Clock = class {
 
         let indicator = '<span style=\"visibility:hidden\">:</span>';
         if (this.date.getSeconds() % 2 == 0 || this.hideSecs == true)
-            indicator = '<span>:</span>';
+            indicator = "<span>:</span>";
 
-        this.dom.html('<span>' + HH + indicator + MM + '</span>');
+        this.dom.html("<span>" + HH + indicator + MM + "</span>");
 
         if (this.hideSecs != true)
-            this.dom.append(' ' + '<small>'+ SS +'</small>');
+            this.dom.append(" " + "<small>" + SS + "</small>");
 
-        return this.jQuery('div#clock').first()
-        .replaceWith(this.dom);
-    });
+        return this.jQuery("div#clock").first().replaceWith(this.dom);
+    };
 
-    format = (input => {
+    format = (input) => {
         if (input < 10) input = "0" + input;
 
         return input;
-    });
+    };
 };
 
 export default Clock;

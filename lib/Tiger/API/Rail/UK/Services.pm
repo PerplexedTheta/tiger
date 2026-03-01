@@ -28,7 +28,6 @@ use Tiger::Env::Config;
 sub get {
     my ($app)        = @_;
     my ($controller) = $app->openapi->valid_input or return;
-    my $json         = $controller->req->json;
 
     my $tiplocId = $controller->param('tiploc_id');
 

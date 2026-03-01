@@ -13,7 +13,7 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
-package Tiger::API::Bus::UK::CityBus::Locations;
+package Tiger::API::Bus::UK::WoE::Services;
 
 use strict;
 use warnings;
@@ -25,19 +25,29 @@ use Mojo::Base 'Mojolicious::Controller', -signatures;
 
 use Tiger::Env::Config;
 
-sub list {
+sub get {
     my ($app)        = @_;
     my ($controller) = $app->openapi->valid_input or return;
-    my $json         = $controller->req->json;
+
+    my $stopId = $controller->param('stop_id');
+
+    return $controller->render(
+        status  => 404,
+        openapi => {
+            errors => [
+                {
+                    error   => 'not_found',
+                    message => 'no stop_id found',
+                }
+            ],
+        },
+    ) unless $stopId;
 
     my $config  = Tiger::Env::Config->new;
-    my $baseurl = $config->{bus}->{citybus}->{api}->{upstream_api_url};
+    my $baseurl = $config->{bus}->{woe}->{api}->{upstream_api_url}->{v1};
 
-    my $request = HTTP::Request->new(
-        'GET',
-        $baseurl
-            . '/_ajax/stops?bounds[]=50.429033174764115,-4.2930661539352&bounds[]=50.33981886720703,-4.023126393385939'
-    );
+    my $request =
+        HTTP::Request->new( 'GET', $baseurl . '/departures?headways=1&ids=' . $stopId . '&region_id=uk-bristol' );
     my $ua = LWP::UserAgent->new;
 
     $request->header( 'User-Agent'   => 'perl/"$^V' );

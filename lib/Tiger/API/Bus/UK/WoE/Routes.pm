@@ -13,7 +13,7 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
-package Tiger::API::Rail::UK::Locations;
+package Tiger::API::Bus::UK::WoE::Routes;
 
 use strict;
 use warnings;
@@ -25,19 +25,33 @@ use Mojo::Base 'Mojolicious::Controller', -signatures;
 
 use Tiger::Env::Config;
 
-sub list {
+sub get {
     my ($app)        = @_;
     my ($controller) = $app->openapi->valid_input or return;
 
+    my $routeId = $controller->param('route_id');
+
+    return $controller->render(
+        status  => 404,
+        openapi => {
+            errors => [
+                {
+                    error   => 'not_found',
+                    message => 'no route_id found',
+                }
+            ],
+        },
+    ) unless $routeId;
+
     my $config  = Tiger::Env::Config->new;
-    my $baseurl = $config->{rail}->{api}->{upstream_api_url};
+    my $baseurl = $config->{bus}->{woe}->{api}->{upstream_api_url}->{v1};
 
-    my $request = HTTP::Request->new( 'GET', $baseurl . '/locations' );
-    my $ua      = LWP::UserAgent->new;
+    my $request =
+        HTTP::Request->new( 'GET', $baseurl . '/routeinfo?route=' . $routeId . '&region_id=uk-bristol&status_format=rich' );
+    my $ua = LWP::UserAgent->new;
 
-    $request->header( 'User-Agent'                                  => 'perl/"$^V' );
-    $request->header( 'Content-Type'                                => 'application/json' );
-    $request->header( $config->{rail}->{api}->{upstream_api_header} => $config->{rail}->{api}->{upstream_api_key} );
+    $request->header( 'User-Agent'   => 'perl/"$^V' );
+    $request->header( 'Content-Type' => 'application/json' );
 
     my $response = $ua->request($request);
     my $content  = JSON->new->decode( $response->{_content} );

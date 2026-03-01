@@ -34,21 +34,21 @@
 
 [% INCLUDE 'include/doc-body-scripts.inc.tt2' %]
 <script type="module">
-    import API from './include/js/bus/uk/citybus/citybus-api.mjs';
+    import API from './include/js/bus/uk/woe/woe-api.mjs';
     import Clock from './include/js/clock.mjs';
-    import CityBus from './include/js/bus/uk/citybus/main.mjs';
+    import Bus from './include/js/bus/uk/woe/main.mjs';
 
-    const api = new API({ jquery: jQuery, atco_id: '[% atco_id %]' });
+    const api = new API({ jquery: jQuery });
     api.init();
 
     const clock = new Clock({ jquery: jQuery, hideSecs: [% IF (hide_secs) %]true[% ELSE %]false[% END %] });
     clock.init();
 
-    const citybus = new CityBus({ mode: 'departs', api: api, jquery: jQuery });
-    citybus.init();
+    const bus = new Bus({ mode: 'departs', stopId: '[% stop_id %]', api: api, jquery: jQuery });
+    bus.init();
     setInterval(
         (() => {
-            return citybus.build();
+            return bus.build();
         }),
         30000
     );

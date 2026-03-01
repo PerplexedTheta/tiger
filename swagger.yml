@@ -4,59 +4,66 @@ info:
   title: "tiger API"
   version: 2.0.1
 paths:
-  /bus/uk/citybus/locations:
+  /bus/uk/woe/locations:
     get:
-      operationId: "listCityBusLocations"
-      summary: "Get all available CityBus stops"
-      x-mojo-name: "list_citybus_locations"
-      x-mojo-to: "API::Bus::UK::CityBus::Locations#list"
+      operationId: "listWoELocations"
+      parameters:
+        - description: "Search Longitude & Latitude"
+          name: "location"
+          in: "query"
+          required: false
+          schema:
+            type: "string"
+      summary: "Get all available West of England stops"
+      x-mojo-name: "list_woe_locations"
+      x-mojo-to: "API::Bus::UK::WoE::Locations#list"
       responses:
         200:
           content:
             application/json:
               schema:
                 type: "object"
-          description: "CityBus Locations response"
-  /bus/uk/citybus/services/{atco_id}:
+          description: "West of England locations response"
+  /bus/uk/woe/routes/{route_id}:
     get:
-      operationId: "getCityBusServices"
+      operationId: "getWoERoutes"
       parameters:
-        - description: "Internal stop identifier"
-          name: "atco_id"
+        - description: "Internal route identifier"
+          name: "route_id"
           in: "path"
           required: true
           schema:
             type: "string"
-      summary: "Get data from CityBus Services based on stop code"
-      x-mojo-name: "get_citybus_services"
-      x-mojo-to: "API::Bus::UK::CityBus::Services#get"
+      summary: "Get data from West of England routes based on route id"
+      x-mojo-name: "get_woe_routes"
+      x-mojo-to: "API::Bus::UK::WoE::Routes#get"
       responses:
         200:
           content:
             application/json:
               schema:
                 type: "object"
-          description: "CityBus Services response"
-  /bus/uk/citybus/services/{atco_id}/updates:
+          description: "West of England routes response"
+  /bus/uk/woe/services/{stop_id}:
     get:
-      operationId: "getCityBusServicesUpdates"
+      operationId: "getWoEServices"
       parameters:
         - description: "Internal stop identifier"
-          name: "atco_id"
+          name: "stop_id"
           in: "path"
           required: true
           schema:
             type: "string"
-      summary: "Get updates from CityBus Services based on stop code"
-      x-mojo-name: "get_citybus_services_updates"
-      x-mojo-to: "API::Bus::UK::CityBus::Services#updates"
+      summary: "Get data from West of England services based on stop id"
+      x-mojo-name: "get_woe_services"
+      x-mojo-to: "API::Bus::UK::WoE::Services#get"
       responses:
         200:
           content:
             application/json:
               schema:
                 type: "object"
-          description: "CityBus Services Updates response"
+          description: "West of England services response"
   /hello_world:
     get:
       operationId: "getHelloWorld"
