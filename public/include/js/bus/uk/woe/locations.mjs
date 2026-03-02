@@ -121,6 +121,8 @@ const Locations = class {
                     .first()
                     .val();
 
+                if (postcode.length < 6) return;
+
                 this.postcode
                     .getPostcode(postcode)
                     .done((data) => {
