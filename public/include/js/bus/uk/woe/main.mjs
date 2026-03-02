@@ -29,6 +29,16 @@ const Bus = class {
     }
 
     init = () => {
+        this.api
+            .getServices(this.stopId)
+            .done((data) => {
+                this.stop = data.stops[0];
+                this.errors = data.errors;
+            })
+            .then(() => {
+                this.setTitle(this.stop.name + " (" + this.stop.bearing + ")");
+            });
+
         this.build()
             .then(() => {
                 this.jQuery("div#loading").remove();
@@ -50,7 +60,8 @@ const Bus = class {
                 this.errors = data.errors;
             })
             .then(() => {
-                this.resetDOM();
+                let dom = this.createDOM();
+
                 if (this.errors)
                     return this.throwError(
                         this.errors[0].error,
@@ -62,8 +73,6 @@ const Bus = class {
                         "no_data",
                         "There is currently no bus information available.",
                     );
-
-                this.setTitle(this.stop.name + " (" + this.stop.bearing + ")");
 
                 this.services.forEach((service, idx) => {
                     // not implemented
@@ -82,7 +91,7 @@ const Bus = class {
                             delta = new Date(etd - now);
 
                             let uid = window.crypto.randomUUID();
-                            let dom = this.loadDOM(uid, etd.getTime());
+                            let row = this.createRow(uid, etd.getTime());
 
                             let statusStr = "En-route";
                             let deltaStr =
@@ -95,29 +104,30 @@ const Bus = class {
                                 this.format(etd.getMinutes());
 
                             if (
-                                deltaStr == "1 mins" ||
-                                deltaStr == "0 mins" ||
-                                etdStr.substring(0, 1) == "-"
+                                (delta.getHours() - 1) * 60 +
+                                    delta.getMinutes() <
+                                2
                             ) {
                                 deltaStr = "";
                                 statusStr = "Due";
                             }
 
-                            this.setOper(dom, service.route.brand);
-                            this.setStatus(dom, statusStr);
-                            this.setAddInfo(dom, deltaStr);
-                            this.setTime(dom, etdStr);
-                            this.setDest(dom, service.headsign);
-                            this.setLine(dom, service.route.name);
+                            this.setOper(row, service.route.brand);
+                            this.setStatus(row, statusStr);
+                            this.setAddInfo(row, deltaStr);
+                            this.setTime(row, etdStr);
+                            this.setDest(row, service.headsign);
+                            this.setLine(row, service.route.name);
 
-                            this.commitDOM(dom);
+                            dom.append(row);
                         });
                     } else {
                         service.next_departures.forEach((departure) => {
-                            let uid = window.crypto.randomUUID();
                             let now = new Date(Date.now());
                             let etd = new Date(departure);
-                            let dom = this.loadDOM(uid, etd.getTime());
+
+                            let uid = window.crypto.randomUUID();
+                            let row = this.createRow(uid, etd.getTime());
 
                             if (etd < now) return;
 
@@ -138,38 +148,34 @@ const Bus = class {
                                 addInfoStr = "Later today";
                             }
 
-                            this.setOper(dom, service.route.brand);
-                            this.setStatus(dom, "Scheduled");
-                            this.setAddInfo(dom, addInfoStr);
-                            this.setTime(dom, etdStr);
-                            this.setDest(dom, service.headsign);
-                            this.setLine(dom, service.route.name);
+                            this.setOper(row, service.route.brand);
+                            this.setStatus(row, "Scheduled");
+                            this.setAddInfo(row, addInfoStr);
+                            this.setTime(row, etdStr);
+                            this.setDest(row, service.headsign);
+                            this.setLine(row, service.route.name);
 
-                            this.commitDOM(dom);
+                            dom.append(row);
                         });
                     }
                 });
-            })
-            .then(() => {
-                this.sortDOM();
+
+                dom = this.sortDOM(dom);
+                this.commitDOM(dom);
             })
             .fail((error) => {
                 console.error(error);
-
-                if (error.responseJSON.errors) {
-                    let errors = error.responseJSON.errors;
-
-                    return this.throwError(errors[0].error, errors[0].message);
-                }
             });
     };
 
     throwError = (code, message) => {
-        let dom = this.loadDOM("");
+        let dom = this.createDOM();
+        let row = this.createRow("", "");
 
-        this.setLine(dom, "", false);
-        this.setCalls(dom, [{ Name: message }]);
+        this.setLine(row, "", false);
+        this.setCalls(row, [{ Name: message }]);
 
+        dom.append(row);
         this.commitDOM(dom);
 
         return {
@@ -187,69 +193,63 @@ const Bus = class {
         return false;
     };
 
-    loadDOM = (uid, etd) => {
+    createRow = (uid, etd) => {
         // initialise object
-        let dom = this.jQuery("<div>");
-        dom.addClass("row");
-        dom.attr("data-uid", uid);
-        dom.attr("data-etd", etd);
-        dom.html(
+        let row = this.jQuery("<div>");
+        row.addClass("row");
+        row.attr("data-uid", uid);
+        row.attr("data-etd", etd);
+        row.html(
             '<div class=\"col opinfo\"><span class=\"oper\">&nbsp;<\/span><\/div><div class=\"col schedinfo\"><span class=\"status\">&nbsp;<\/span><span class=\"addinfo\">&nbsp;<\/span><\/div><div class=\"col boardinfo\"><span class=\"due alert\">&nbsp;<\/span><\/div><div class=\"col destinfo originfo\"><span class=\"dest orig\">&nbsp;<\/span><\/div><div class=\"col lineinfo\"><span class=\"line\">&nbsp;<\/span><\/div><div class=\"col callsinfo\"><ul class=\"calls\"><\/ul><\/div>',
         );
+
+        return row;
+    };
+
+    createDOM = () => {
+        return this.jQuery("<main>");
+    };
+
+    sortDOM = (dom) => {
+        let rows = [];
+        let sortOns = [];
+
+        dom.children().each((idx, element) => {
+            sortOns.push(this.jQuery(element).attr("data-etd"));
+            sortOns.sort();
+        });
+
+        sortOns.forEach((sortOn) => {
+            rows.push(dom.find("div[data-etd='" + sortOn + "']"));
+        });
 
         return dom;
     };
 
     commitDOM = (dom) => {
-        return this.jQuery("main").append(dom);
+        this.jQuery("main").remove();
+        return this.jQuery("#wrapper").find("header").first().after(dom);
     };
 
-    resetDOM = () => {
-        return this.jQuery("main").text("");
+    setAddInfo = (row, addInfo = "") => {
+        return row.find("span.addinfo").first().html(addInfo);
     };
 
-    sortDOM = () => {
-        let doms = [];
-        let sortOns = [];
-
-        this.jQuery("main")
-            .children()
-            .each((idx, element) => {
-                sortOns.push(this.jQuery(element).attr("data-etd"));
-                sortOns.sort();
-            });
-
-        sortOns.forEach((sortOn) => {
-            doms.push(
-                this.jQuery("main").find("div[data-etd='" + sortOn + "']"),
-            );
-        });
-
-        this.resetDOM();
-        doms.forEach((dom) => {
-            this.commitDOM(dom);
-        });
-    };
-
-    setAddInfo = (dom, addInfo = "") => {
-        return dom.find("span.addinfo").first().html(addInfo);
-    };
-
-    setCalls = (dom, callingPoints = []) => {
+    setCalls = (row, callingPoints = []) => {
         callingPoints.forEach((callingPoint) => {
-            dom.find("ul.calls")
+            row.find("ul.calls")
                 .first()
                 .append("<li>" + callingPoint.Name + "</li>");
         });
 
-        return dom.find("ul.calls").first();
+        return row.find("ul.calls").first();
     };
 
-    setDest = (dom, dest) => {
-        return dom.find("span.dest").first().html(dest);
+    setDest = (row, dest) => {
+        return row.find("span.dest").first().html(dest);
     };
 
-    setOper = (dom, oper = "TFL") => {
+    setOper = (row, oper = "TFL") => {
         let tocMap = {};
         oper = tocMap[oper] || oper;
 
@@ -270,42 +270,42 @@ const Bus = class {
             oper =
                 '<img src=\"\/res\/vectors\/stagecoach.svg\" style=\"width:2.25em\" alt=\"Stagecoach\" \/>';
 
-        return dom.find("span.oper").first().html(oper);
+        return row.find("span.oper").first().html(oper);
     };
 
-    setOrig = (dom, orig) => {
-        return dom.find("span.orig").first().html(orig);
+    setOrig = (row, orig) => {
+        return row.find("span.orig").first().html(orig);
     };
 
-    setLine = (dom, line = "", lineChanged = false) => {
-        if (lineChanged) dom.find("span.line").first().addClass("alert");
+    setLine = (row, line = "", lineChanged = false) => {
+        if (lineChanged) row.find("span.line").first().addClass("alert");
 
         if (line == "") {
-            dom.find("span.line").first().remove();
+            row.find("span.line").first().remove();
             return undefined;
         }
 
-        return dom.find("span.line").first().html(line);
+        return row.find("span.line").first().html(line);
     };
 
-    setSpecialNotice = (dom, specialNotice) => {
-        dom.addClass("alert");
+    setSpecialNotice = (row, specialNotice) => {
+        row.addClass("alert");
 
-        return dom.find("p").first().html(specialNotice);
+        return row.find("p").first().html(specialNotice);
     };
 
-    setStatus = (dom, status = "") => {
+    setStatus = (row, status = "") => {
         if (status == "Due") {
-            dom.find("span.status").first().addClass("alert");
+            row.find("span.status").first().addClass("alert");
         } else if (status == "Scheduled") {
-            dom.find("span.status").first().addClass("danger");
+            row.find("span.status").first().addClass("danger");
         }
 
-        return dom.find("span.status").first().html(status);
+        return row.find("span.status").first().html(status);
     };
 
-    setTime = (dom, time = "") => {
-        return dom.find("span.due").first().html(time.replace(":", "h"));
+    setTime = (row, time = "") => {
+        return row.find("span.due").first().html(time.replace(":", "h"));
     };
 
     setTitle = (stop = "") => {

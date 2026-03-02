@@ -17,6 +17,7 @@
 const UKRail = class {
     constructor(config) {
         this.mode = config.mode;
+        this.tiplocId = config.tiplocId;
         this.api = config.api;
         this.jQuery = config.jquery;
 
@@ -39,7 +40,7 @@ const UKRail = class {
             })
             .then(() => {
                 this.location = this.locations.find((location) => {
-                    return location.TIPLOC == this.api.tiploc_id;
+                    return location.TIPLOC == this.tiplocId;
                 });
 
                 this.setTitle(this.location.Name || this.location.TIPLOC || "");
@@ -58,7 +59,7 @@ const UKRail = class {
 
     build = async () => {
         return this.api
-            .getServices()
+            .getServices(this.tiplocId)
             .done((data) => {
                 this.detail = data.detail;
                 this.incidentSummary = data.incidentSummary;
@@ -67,7 +68,7 @@ const UKRail = class {
                 this.errors = data.errors;
             })
             .then(() => {
-                this.resetDOM();
+                let dom = this.createDOM();
 
                 if (this.detail)
                     if (
@@ -101,47 +102,49 @@ const UKRail = class {
                     if (this.mode == "arrivees" && service.STA == "") return;
 
                     let uid = service.UID;
-                    let dom = this.loadDOM(uid);
+                    let row = this.createRow(uid, service.ETA, service.ETD);
 
-                    this.setOper(dom, service.ATOCCode);
-                    this.setHeadCode(dom, service.Headcode);
+                    this.setOper(row, service.ATOCCode);
+                    this.setHeadCode(row, service.Headcode);
                     this.setStatus(
-                        dom,
+                        row,
                         service.STD,
                         service.ETD,
                         service.Delay,
                     );
                     this.setAddInfo(
-                        dom,
+                        row,
                         service.STD,
                         service.ETD,
                         service.Delay,
                     );
                     this.setPlatform(
-                        dom,
+                        row,
                         service.Platform,
                         service.PlatformChanged,
                     );
 
                     if (this.mode == "departs") {
-                        this.setTime(dom, service.STD);
-                        this.setDest(dom, service.Destinations.Front.Name);
+                        this.setTime(row, service.STD);
+                        this.setDest(row, service.Destinations.Front.Name);
 
                         if (idx < 2 && !this.hideCalls && service.CallingPoints)
                             this.setCalls(
-                                dom,
+                                row,
                                 service.CallingPoints.Front,
                                 this.disableAnimation,
                             );
                     }
 
                     if (this.mode == "arrivees") {
-                        this.setTime(dom, service.STA);
-                        this.setOrig(dom, service.Origins.Front.Name);
+                        this.setTime(row, service.STA);
+                        this.setOrig(row, service.Origins.Front.Name);
                     }
 
-                    this.commitDOM(dom);
+                    dom.append(row);
                 });
+
+                this.commitDOM(dom);
             })
             .fail((error) => {
                 console.error(error);
@@ -149,11 +152,13 @@ const UKRail = class {
     };
 
     throwError = (code, message) => {
-        let dom = this.loadDOM("");
+        let dom = this.createDOM();
+        let row = this.createRow("", "");
 
-        this.setPlatform(dom, "", false);
-        this.setCalls(dom, [{ Name: message }], false);
+        this.setPlatform(row, "", false);
+        this.setCalls(row, [{ Name: message }]);
 
+        dom.append(row);
         this.commitDOM(dom);
 
         return {
@@ -182,24 +187,27 @@ const UKRail = class {
         return false;
     };
 
-    loadDOM = (uid) => {
+    createRow = (uid, eta, etd) => {
         // initialise object
-        let dom = this.jQuery("<div>");
-        dom.addClass("row");
-        dom.attr("data-uid", uid);
-        dom.html(
+        let row = this.jQuery("<div>");
+        row.addClass("row");
+        row.attr("data-uid", uid);
+        row.attr("data-eta", eta);
+        row.attr("data-etd", etd);
+        row.html(
             '<div class=\"col opinfo\"><span class=\"oper\">&nbsp;<\/span><span class=\"headcode\">&nbsp;<\/span><\/div><div class=\"col schedinfo\"><span class=\"status\">&nbsp;<\/span><span class=\"addinfo\">&nbsp;<\/span><\/div><div class=\"col boardinfo\"><span class=\"due alert\">&nbsp;<\/span><\/div><div class=\"col destinfo originfo\"><span class=\"dest orig\">&nbsp;<\/span><\/div><div class=\"col platinfo\"><span class=\"platform\">&nbsp;<\/span><\/div><div class=\"col callsinfo\"><ul class=\"calls\"><\/ul><\/div>',
         );
 
-        return dom;
+        return row;
+    };
+
+    createDOM = () => {
+        return this.jQuery("<main>");
     };
 
     commitDOM = (dom) => {
-        return this.jQuery("main").append(dom);
-    };
-
-    resetDOM = () => {
-        return this.jQuery("main").text("");
+        this.jQuery("main").remove();
+        return this.jQuery("#wrapper").find("header").first().after(dom);
     };
 
     setAddInfo = (dom, STD = "", ETD = "", delay = "") => {
@@ -212,41 +220,41 @@ const UKRail = class {
         if (value == "On time") return;
         if (isNaN(delay)) return;
 
-        return dom
+        return row
             .find("span.addinfo")
             .first()
             .addClass("alert")
             .html(delay + " minutes");
     };
 
-    setCalls = (dom, callingPoints = [], disableAnimation = false) => {
+    setCalls = (row, callingPoints = [], disableAnimation = false) => {
         callingPoints.forEach((callingPoint) => {
-            dom.find("ul.calls")
+            row.find("ul.calls")
                 .first()
                 .append("<li>" + callingPoint.Name + "</li>");
         });
 
         if (!disableAnimation)
-            dom.find("ul.calls").first().addClass("animated");
+            row.find("ul.calls").first().addClass("animated");
 
-        return dom.find("ul.calls").first();
+        return row.find("ul.calls").first();
     };
 
-    setDest = (dom, dest) => {
-        return dom.find("span.dest").first().html(dest);
+    setDest = (row, dest) => {
+        return row.find("span.dest").first().html(dest);
     };
 
-    setHeadCode = (dom, headcode = "") => {
-        return dom.find("span.headcode").first().html(headcode);
+    setHeadCode = (row, headcode = "") => {
+        return row.find("span.headcode").first().html(headcode);
     };
 
-    setIncidentSummary = (dom, incidentSummary) => {
-        dom.addClass("danger");
+    setIncidentSummary = (row, incidentSummary) => {
+        row.addClass("danger");
 
-        return dom.find("p").first().html(incidentSummary);
+        return row.find("p").first().html(incidentSummary);
     };
 
-    setOper = (dom, oper = "GB") => {
+    setOper = (row, oper = "GB") => {
         let tocMap = {
             EM: "EMR",
             GB: "GBR",
@@ -283,47 +291,47 @@ const UKRail = class {
             oper =
                 '<img src=\"\/res\/vectors\/scot.svg\" style=\"width:2.25em\" alt=\"ScotRail\" \/>';
 
-        return dom.find("span.oper").first().html(oper);
+        return row.find("span.oper").first().html(oper);
     };
 
-    setOrig = (dom, orig) => {
-        return dom.find("span.orig").first().html(orig);
+    setOrig = (row, orig) => {
+        return row.find("span.orig").first().html(orig);
     };
 
-    setPlatform = (dom, platform = "", platformChanged = false) => {
+    setPlatform = (row, platform = "", platformChanged = false) => {
         if (platformChanged)
-            dom.find("span.platform").first().addClass("alert");
+            row.find("span.platform").first().addClass("alert");
 
         if (platform == "") {
-            dom.find("span.platform").first().remove();
+            row.find("span.platform").first().remove();
             return undefined;
         }
 
-        return dom.find("span.platform").first().html(platform);
+        return row.find("span.platform").first().html(platform);
     };
 
-    setSpecialNotice = (dom, specialNotice) => {
-        dom.addClass("alert");
+    setSpecialNotice = (row, specialNotice) => {
+        row.addClass("alert");
 
-        return dom.find("p").first().html(specialNotice);
+        return row.find("p").first().html(specialNotice);
     };
 
-    setStatus = (dom, STD = "", ETD = "", delay = "") => {
+    setStatus = (row, STD = "", ETD = "", delay = "") => {
         let value = "Delayed";
 
         if (STD == ETD || ETD == "On time") value = "On time";
         if (delay === "CAN") value = "Cancelled";
 
         if (value == "Delayed")
-            dom.find("span.status").first().addClass("alert");
+            row.find("span.status").first().addClass("alert");
         else if (value == "Cancelled")
-            dom.find("span.status").first().addClass("danger");
+            row.find("span.status").first().addClass("danger");
 
-        return dom.find("span.status").first().html(value);
+        return row.find("span.status").first().html(value);
     };
 
-    setTime = (dom, time = "") => {
-        return dom.find("span.due").first().html(time.replace(":", "h"));
+    setTime = (row, time = "") => {
+        return row.find("span.due").first().html(time.replace(":", "h"));
     };
 
     setTitle = (station = "") => {
@@ -335,6 +343,12 @@ const UKRail = class {
         this.jQuery("title").text(title);
 
         return this.jQuery("header h1").first().html(title);
+    };
+
+    format = (input) => {
+        if (input < 10) input = "0" + input;
+
+        return input;
     };
 };
 

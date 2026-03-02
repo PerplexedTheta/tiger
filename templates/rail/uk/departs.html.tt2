@@ -38,7 +38,7 @@
     import Clock from './include/js/clock.mjs';
     import UKRail from './include/js/rail/uk/main.mjs';
 
-    const api = new API({ jquery: jQuery, tiploc_id: '[% tiploc_id %]' });
+    const api = new API({ jquery: jQuery });
     api.init();
 
     const clock = new Clock({ jquery: jQuery, hideSecs: [% IF (hide_secs) %]true[% ELSE %]false[% END %] });
@@ -46,6 +46,7 @@
 
     const ukrail = new UKRail({
         mode: 'departs',
+        tiplocId: '[% tiploc_id %]',
         api: api,
         jquery: jQuery,
         disableAnimation: [% IF (disable_animation) %]true[% ELSE %]false[% END %],

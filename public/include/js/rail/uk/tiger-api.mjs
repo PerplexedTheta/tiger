@@ -17,8 +17,6 @@
 const API = class {
     constructor(config) {
         this.jQuery = config.jquery;
-        this.locations = undefined;
-        this.tiploc_id = config.tiploc_id;
     }
 
     init = () => {
@@ -29,12 +27,8 @@ const API = class {
         return this.jQuery.get("/api/v1/rail/uk/locations");
     };
 
-    getServices = () => {
-        return this.jQuery.get("/api/v1/rail/uk/services/" + this.tiploc_id);
-    };
-
-    getTiploc = () => {
-        return this.tiploc_id;
+    getServices = (tiplocId) => {
+        return this.jQuery.get("/api/v1/rail/uk/services/" + tiplocId);
     };
 };
 

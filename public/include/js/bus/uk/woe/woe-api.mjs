@@ -17,7 +17,6 @@
 const API = class {
     constructor(config) {
         this.jQuery = config.jquery;
-        this.locations = undefined;
 
         this.location = config.location
             ? config.location
@@ -34,12 +33,12 @@ const API = class {
         );
     };
 
-    getRoute = (route_id) => {
-        return this.jQuery.get("/api/v1/bus/uk/woe/routes/" + route_id);
+    getRoute = (routeId) => {
+        return this.jQuery.get("/api/v1/bus/uk/woe/routes/" + routeId);
     };
 
-    getServices = (stop_id) => {
-        return this.jQuery.get("/api/v1/bus/uk/woe/services/" + stop_id);
+    getServices = (stopId) => {
+        return this.jQuery.get("/api/v1/bus/uk/woe/services/" + stopId);
     };
 
     getLocation = () => {
