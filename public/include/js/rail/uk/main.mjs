@@ -210,7 +210,7 @@ const UKRail = class {
         return this.jQuery("#wrapper").find("header").first().after(dom);
     };
 
-    setAddInfo = (dom, STD = "", ETD = "", delay = "") => {
+    setAddInfo = (row, STD = "", ETD = "", delay = "") => {
         let value = "Delayed";
         delay = Number(delay.replace("+", ""));
 
