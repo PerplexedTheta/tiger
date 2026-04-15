@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+SCRIPT_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)" # get current script dir portibly
+
+function bail () {
+    exit 1
+}
+
+function success () {
+    exit 0
+}
+
+cd "${SCRIPT_DIR}/../.."
+
+carton install || bail
+
+success

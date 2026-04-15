@@ -8,5 +8,7 @@ requires 'Modern::Perl', '1.20250607';
 requires 'Mojolicious', '9.41';
 requires 'Mojolicious::Plugin::OpenAPI', '5.11';
 requires 'Mojolicious::Plugin::TemplateToolkit', '0.006';
+requires 'Template', '3.102';
 requires 'Time::Piece', '1.41';
 requires 'YAML', '1.31';
+requires 'YAML::PP', '0.39.0';
