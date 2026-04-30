@@ -29,10 +29,10 @@
     import API from './include/js/rail/uk/tiger-api.mjs';
     import UKRail from './include/js/rail/uk/main.mjs';
 
-    const api = new API({ jquery: jQuery, tiploc_id: '[% tiploc_id %]' });
+    const api = new API({ jquery: jQuery });
     api.init();
 
-    const ukrail = new UKRail({ mode: 'arrivees', api: api, jquery: jQuery });
+    const ukrail = new UKRail({ mode: 'arrivees', api: api, jquery: jQuery, tiplocId: '[% tiplocId %]' });
     ukrail.init();
     setInterval(
         (() => {
